@@ -35,7 +35,7 @@
 
 <title>
     
-    分类列表 |
+    hexo博客的常用操作 |
     
     Issac的个人博客
 </title>
@@ -122,31 +122,90 @@
     <div class="ui grid stackable">
       <!-- 文章列表 -->
 <div class="eleven wide column">
-  <div class="ui segment background-thin-yellow">
-    <!-- 标签栏 -->
-    <div class="row-flex flex-wrap category1-lists">
-      <a href="/categories" class="tabs-nav">全部</a>
-      
-      <a href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/" class="tabs-nav">异常解决 (1)</a>
-      
-      <a href="/categories/%E6%95%99%E7%A8%8B/" class="tabs-nav">教程 (2)</a>
-      
-      <a href="/categories/%E5%AE%89%E8%A3%85%E5%AE%9E%E6%93%8D/" class="tabs-nav">安装实操 (2)</a>
-      
-      <a class="tabs-nav" id="category1-next"><i class="angle double right icon"></i>展开更多</a>
+  <div class="ui segment background-thin-yellow content">
+    <div class="ui segment background-thin-yellow border-background-less">
+      <div class="ui segment background-thin-yellow border-background-less">
+        <h2 class="ui center aligned icon header">hexo博客的常用操作</h2>
+        <div class="ui segment background-thin-yellow border-background-less">
+          <!-- 文章info -->
+          <div class="row-flex-center">
+            <h5 class="header margin-left-right-10"><i class="address user icon"></i></h5>
+            <h5 class="header margin-left-right-10"><i class="address calendar alternate outline icon"></i>2025年08月22日</h5>
+            <h5 class="header margin-left-right-10"><i class="address eye icon"></i><span id="twikoo_visitors">0</span></h5>
+            <h5 class="header margin-left-right-10"><i class="address folder open outline icon"></i>
+              
+              <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+              </h5>
+            <h5 class="header margin-left-right-10"><i class="address tag icon"></i>
+              
+              <a class="tag-none-link" href="/tags/hexo/" rel="tag">hexo</a> ， <a class="tag-none-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a>
+              </h5>
+          </div>
+        </div>
+        <!-- 分割线 -->
+        <div class="ui divider title-divider"></div>
+      </div>
+      <div class="ui segment background-thin-yellow content border-background-less top-15"> <h2 id="Hexo-常用操作指南"><a href="#Hexo-常用操作指南" class="headerlink" title="Hexo 常用操作指南"></a>Hexo 常用操作指南</h2><h4 id="常用组合"><a href="#常用组合" class="headerlink" title="常用组合"></a>常用组合</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 快速本地重新部署</span></span><br><span class="line">hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 快速部署到远程</span></span><br><span class="line">hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建文章</span></span><br><span class="line">hexo new <span class="string">&quot;文章标题&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="启动本地服务器"><a href="#启动本地服务器" class="headerlink" title="启动本地服务器"></a>启动本地服务器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动服务器并在浏览器预览</span></span><br><span class="line">hexo server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简写</span></span><br><span class="line">hexo s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务器并开启调试模式（显示详细日志）</span></span><br><span class="line">hexo s --debug</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用自定义端口启动</span></span><br><span class="line">hexo s -p 4001</span><br></pre></td></tr></table></figure>
+<p>生成静态文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成静态文件到public目录</span></span><br><span class="line">hexo generate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简写</span></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成文件并监视文件变动</span></span><br><span class="line">hexo g --watch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成文件后部署</span></span><br><span class="line">hexo g --deploy</span><br></pre></td></tr></table></figure>
+<p>部署到远程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 部署网站</span></span><br><span class="line">hexo deploy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简写</span></span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成文件后部署</span></span><br><span class="line">hexo g -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署前先清理旧文件</span></span><br><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+<p>新建内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建文章</span></span><br><span class="line">hexo new <span class="string">&quot;文章标题&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建文章并指定布局</span></span><br><span class="line">hexo new post <span class="string">&quot;文章标题&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建页面</span></span><br><span class="line">hexo new page <span class="string">&quot;页面名称&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建草稿</span></span><br><span class="line">hexo new draft <span class="string">&quot;草稿标题&quot;</span></span><br></pre></td></tr></table></figure>
+<p>发布草稿</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将草稿移动到正式文章</span></span><br><span class="line">hexo publish draft <span class="string">&quot;草稿标题&quot;</span></span><br></pre></td></tr></table></figure>
+<p>文件之间的超链接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">在Markdown文件中使用以下方式创建链接：</span><br><span class="line"></span><br><span class="line">链接到其他文章</span><br><span class="line">text</span><br><span class="line">&lt;!-- 自动使用文章标题作为链接文字 --&gt;</span><br><span class="line">请看这篇教程：&#123;% post_link <span class="string">&#x27;my-first-post&#x27;</span> %&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 使用自定义链接文字 --&gt;</span><br><span class="line">请阅读我的&#123;% post_link <span class="string">&#x27;my-first-post&#x27;</span> <span class="string">&#x27;第一篇博文&#x27;</span> %&#125;</span><br><span class="line"></span><br><span class="line">链接到页面</span><br><span class="line">text</span><br><span class="line">[关于我](&#123;&#123; url_for(<span class="string">&#x27;about/&#x27;</span>) &#125;&#125;)</span><br><span class="line">[归档页面](&#123;&#123; url_for(<span class="string">&#x27;archives/&#x27;</span>) &#125;&#125;)</span><br><span class="line">链接到标签/分类</span><br><span class="line">text</span><br><span class="line">[Hexo标签](&#123;&#123; url_for(<span class="string">&#x27;tags/Hexo&#x27;</span>) &#125;&#125;)</span><br><span class="line">[技术分类](&#123;&#123; url_for(<span class="string">&#x27;categories/技术&#x27;</span>) &#125;&#125;)</span><br><span class="line">相对路径链接</span><br><span class="line">text</span><br><span class="line">[下载文件](/path/to/file.pdf)</span><br><span class="line">[图片展示](/images/example.jpg)</span><br></pre></td></tr></table></figure>
+<p>常用组合命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完整流程：清理→生成→部署</span></span><br><span class="line">hexo clean &amp;&amp; hexo g -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地写作测试</span></span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只生成不部署</span></span><br><span class="line">hexo clean &amp;&amp; hexo g</span><br></pre></td></tr></table></figure>
+<p>查看帮助</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有命令</span></span><br><span class="line">hexo <span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看特定命令帮助</span></span><br><span class="line">hexo <span class="built_in">help</span> server</span><br><span class="line">hexo <span class="built_in">help</span> generate</span><br></pre></td></tr></table></figure>
+</div>
+
+
+      <!-- 文章结尾处理 -->
+      <div class="ui divider title-divider"></div>
     </div>
   </div>
 
-  
-    <div class="ui segment background-thin-yellow">
-      <p>该分类下暂无文章</p>
+  <!-- 上一篇、下一篇 -->
+  <div class="ui segment background-thin-yellow content">
+    <div class="ui segment background-thin-yellow border-background-less page-prev-next">
+      
+      <a href="/2025/08/22/%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AEGithub%E4%BD%BF%E7%94%A8SSH%E5%AF%86%E9%92%A5/" title='如何配置Github使用SSH密钥'>
+        <span class="page-prev">上一篇</span>
+      </a>
+      
+
+      
+      <a href="/2025/08/21/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87hexo%E5%9C%A8github%E4%B8%8A%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" title='如何通过hexo在github上免费搭建博客'>
+        <span class="page-next">下一篇</span>
+      </a>
+      
+
     </div>
-  
+  </div>
+
+
+
 </div>
 
       <!-- 侧边栏 -->
 <div class="five wide column">
   <!-- 文章目录 -->
+  
+  <!-- 文章内容页面中的目录栏 -->
+<div class="ui segment background-thin-yellow article-toc">
+  <div class="ui segment background-title-red padding-title">
+    <h4 class="header ">文章目录：</h4>
+  </div>
+  <div class="container-toc">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97"><span class="toc-text">Hexo 常用操作指南</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%BB%84%E5%90%88"><span class="toc-text">常用组合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">启动本地服务器</span></a></li></ol></li></ol></li></ol>
+  </div>
+</div>
+
   
 
   <div class="ui segment background-thin-yellow">

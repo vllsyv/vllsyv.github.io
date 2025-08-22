@@ -99,3 +99,53 @@ $(document).ready(function() {
 			// callback function
 		});
 });
+
+// https://github.com/riktar/jk-countdown
+(function ($) {
+  var interval = null;
+
+  function countdown_proc(el, opts) {
+    var diff = Math.floor((opts.date - new Date().getTime()) / 1000);
+    if (diff <= 0) {
+      clearInterval(interval);
+      opts.onEnd.call(el);
+    } else {
+      var days = Math.floor(diff / 86400);
+      var hours = Math.floor((diff - days * 86400) / 3600);
+      var minutes = Math.floor((diff - days * 86400 - hours * 3600) / 60);
+      var seconds = Math.floor(diff - days * 86400 - hours * 3600 - minutes * 60);
+
+      opts.onTick.call(el, {
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds
+      });
+    }
+  }
+
+  $.fn.countdown = function (options) {
+    var opts = $.extend({}, $.fn.countdown.defaults, options);
+
+    return this.each(function () {
+      var el = $(this);
+
+      countdown_proc(el, opts);
+
+      interval = setInterval(function () {
+        countdown_proc(el, opts);
+      }, 1000);
+    });
+  };
+
+  $.fn.countdown.defaults = {
+    date: null,
+    onTick: function () { },
+    onEnd: function () { }
+  };
+
+  $(document).ready(function () {
+    $('.jk-countdown').countdown();
+  });
+
+})(jQuery);

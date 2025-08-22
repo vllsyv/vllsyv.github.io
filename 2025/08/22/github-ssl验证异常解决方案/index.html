@@ -35,7 +35,7 @@
 
 <title>
     
-    分类列表 |
+    github ssl验证异常解决方案 |
     
     Issac的个人博客
 </title>
@@ -122,31 +122,114 @@
     <div class="ui grid stackable">
       <!-- 文章列表 -->
 <div class="eleven wide column">
-  <div class="ui segment background-thin-yellow">
-    <!-- 标签栏 -->
-    <div class="row-flex flex-wrap category1-lists">
-      <a href="/categories" class="tabs-nav">全部</a>
-      
-      <a href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/" class="tabs-nav">异常解决 (1)</a>
-      
-      <a href="/categories/%E6%95%99%E7%A8%8B/" class="tabs-nav">教程 (2)</a>
-      
-      <a href="/categories/%E5%AE%89%E8%A3%85%E5%AE%9E%E6%93%8D/" class="tabs-nav">安装实操 (2)</a>
-      
-      <a class="tabs-nav" id="category1-next"><i class="angle double right icon"></i>展开更多</a>
+  <div class="ui segment background-thin-yellow content">
+    <div class="ui segment background-thin-yellow border-background-less">
+      <div class="ui segment background-thin-yellow border-background-less">
+        <h2 class="ui center aligned icon header">github ssl验证异常解决方案</h2>
+        <div class="ui segment background-thin-yellow border-background-less">
+          <!-- 文章info -->
+          <div class="row-flex-center">
+            <h5 class="header margin-left-right-10"><i class="address user icon"></i></h5>
+            <h5 class="header margin-left-right-10"><i class="address calendar alternate outline icon"></i>2025年08月22日</h5>
+            <h5 class="header margin-left-right-10"><i class="address eye icon"></i><span id="twikoo_visitors">0</span></h5>
+            <h5 class="header margin-left-right-10"><i class="address folder open outline icon"></i>
+              
+              <a class="category-link" href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/">异常解决</a>
+              </h5>
+            <h5 class="header margin-left-right-10"><i class="address tag icon"></i>
+              
+              <a class="tag-none-link" href="/tags/git/" rel="tag">git</a> ， <a class="tag-none-link" href="/tags/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/" rel="tag">异常解决</a>
+              </h5>
+          </div>
+        </div>
+        <!-- 分割线 -->
+        <div class="ui divider title-divider"></div>
+      </div>
+      <div class="ui segment background-thin-yellow content border-background-less top-15"> <h1 id="解决-Windows-环境下-GitHub-HTTPS-访问的-SSL-错误"><a href="#解决-Windows-环境下-GitHub-HTTPS-访问的-SSL-错误" class="headerlink" title="解决 Windows 环境下 GitHub HTTPS 访问的 SSL 错误"></a>解决 Windows 环境下 GitHub HTTPS 访问的 SSL 错误</h1><p>当 Git 或浏览器在 Windows 上遇到 <code>SSL certificate problem</code> 或类似的 SSL&#x2F;TLS 错误时，通常是由以下几个原因引起的。请按顺序尝试以下解决方案。</p>
+<h2 id="1-检查系统时间"><a href="#1-检查系统时间" class="headerlink" title="1. 检查系统时间"></a>1. 检查系统时间</h2><p>不正确的系统日期和时间是导致 SSL 证书验证失败的<strong>最常见原因</strong>，因为证书具有有效期。</p>
+<ul>
+<li>点击任务栏右下角的时间。</li>
+<li>选择 <strong>“日期和时间设置”</strong>。</li>
+<li>确保 <strong>“自动设置时间”</strong> 和 <strong>“自动设置时区”</strong> 处于开启状态。</li>
+<li>如果已开启但仍不准，请手动同步：<ol>
+<li>选择 <strong>“同步时钟”</strong> 下的 <strong>“立即同步”</strong> 按钮。</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-更新-Git-的根证书捆绑包-CABundle"><a href="#2-更新-Git-的根证书捆绑包-CABundle" class="headerlink" title="2. 更新 Git 的根证书捆绑包 (CABundle)"></a>2. 更新 Git 的根证书捆绑包 (CABundle)</h2><p>Git for Windows 使用自带的证书捆绑包 (<code>ca-bundle.crt</code>)，有时可能过时。</p>
+<h3 id="方法一：使用-Git-命令更新（推荐）"><a href="#方法一：使用-Git-命令更新（推荐）" class="headerlink" title="方法一：使用 Git 命令更新（推荐）"></a>方法一：使用 Git 命令更新（推荐）</h3><ol>
+<li>打开 <strong>Git Bash</strong>。</li>
+<li>运行以下命令，它会让 Git 使用系统已更新的证书存储：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.sslBackend schannel</span><br></pre></td></tr></table></figure>
+<em><code>schannel</code> 是 Windows 自带的 SSL 后端，通常与系统证书库保持同步。</em></li>
+</ol>
+<h3 id="方法二：手动更新证书包"><a href="#方法二：手动更新证书包" class="headerlink" title="方法二：手动更新证书包"></a>方法二：手动更新证书包</h3><ol>
+<li>从官方源下载最新的 <code>ca-bundle.crt</code> 文件：<br><a target="_blank" rel="noopener" href="https://curl.se/docs/caextract.html">https://curl.se/docs/caextract.html</a></li>
+<li>找到你 Git 安装路径下的 <code>ca-bundle.crt</code> 文件（通常位于 <code>C:\Program Files\Git\mingw64\ssl\certs</code>）。</li>
+<li><strong>备份</strong>旧文件后，将下载的新文件复制并替换到该目录。</li>
+</ol>
+<h2 id="3-明确指定-Git-的证书路径"><a href="#3-明确指定-Git-的证书路径" class="headerlink" title="3. 明确指定 Git 的证书路径"></a>3. 明确指定 Git 的证书路径</h2><p>如果更新后问题依旧，可以显式告诉 Git 使用哪个证书包。</p>
+<ol>
+<li>找到你的 <code>ca-bundle.crt</code> 文件路径（见方法二）。</li>
+<li>在 Git Bash 中运行：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.sslCAInfo <span class="string">&quot;C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt&quot;</span></span><br></pre></td></tr></table></figure>
+<em>请将路径替换为你电脑上的实际路径。注意：Git Bash 中使用正斜杠 <code>/</code>。</em></li>
+</ol>
+<h2 id="4-检查企业网络环境（代理-防火墙）"><a href="#4-检查企业网络环境（代理-防火墙）" class="headerlink" title="4. 检查企业网络环境（代理&#x2F;防火墙）"></a>4. 检查企业网络环境（代理&#x2F;防火墙）</h2><p>如果你在公司或学校网络，可能会遇到中间人代理过滤 HTTPS 流量。</p>
+<ul>
+<li><strong>症状</strong>：只有特定网络访问 GitHub 出错，切换手机热点后正常。</li>
+<li><strong>解决方案</strong>：<ol>
+<li>联系你的 IT 部门，询问他们是否使用了 HTTPS 代理，并索取其根证书。</li>
+<li>将 IT 提供的根证书导入到 Windows 的受信任根证书颁发机构。</li>
+<li>如果提供了代理地址，需要为 Git 配置代理：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 HTTP 代理</span></span><br><span class="line">git config --global http.proxy http://proxy.company.com:port</span><br><span class="line"><span class="comment"># 设置 HTTPS 代理</span></span><br><span class="line">git config --global https.proxy https://proxy.company.com:port</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h2 id="5-临时解决方案（非常不推荐）"><a href="#5-临时解决方案（非常不推荐）" class="headerlink" title="5. 临时解决方案（非常不推荐）"></a>5. 临时解决方案（非常不推荐）</h2><p><strong>警告：</strong> 这会禁用 SSL 验证，带来安全风险。仅作为最后手段用于测试，切勿长期使用。</p>
+<pre><code class="language-bash"># 为所有仓库全局禁用 SSL 验证（危险！）
+git config --global http.sslVerify false
+
+# 仅为当前仓库禁用（相对好一些）
+git config http.sslVerify false
+</code></pre>
+</div>
+
+
+      <!-- 文章结尾处理 -->
+      <div class="ui divider title-divider"></div>
     </div>
   </div>
 
-  
-    <div class="ui segment background-thin-yellow">
-      <p>该分类下暂无文章</p>
+  <!-- 上一篇、下一篇 -->
+  <div class="ui segment background-thin-yellow content">
+    <div class="ui segment background-thin-yellow border-background-less page-prev-next">
+      
+
+      
+      <a href="/2025/08/22/markdown%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" title='markdown基础语法'>
+        <span class="page-next">下一篇</span>
+      </a>
+      
+
     </div>
-  
+  </div>
+
+
+
 </div>
 
       <!-- 侧边栏 -->
 <div class="five wide column">
   <!-- 文章目录 -->
+  
+  <!-- 文章内容页面中的目录栏 -->
+<div class="ui segment background-thin-yellow article-toc">
+  <div class="ui segment background-title-red padding-title">
+    <h4 class="header ">文章目录：</h4>
+  </div>
+  <div class="container-toc">
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3-Windows-%E7%8E%AF%E5%A2%83%E4%B8%8B-GitHub-HTTPS-%E8%AE%BF%E9%97%AE%E7%9A%84-SSL-%E9%94%99%E8%AF%AF"><span class="toc-text">解决 Windows 环境下 GitHub HTTPS 访问的 SSL 错误</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A3%80%E6%9F%A5%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="toc-text">1. 检查系统时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9B%B4%E6%96%B0-Git-%E7%9A%84%E6%A0%B9%E8%AF%81%E4%B9%A6%E6%8D%86%E7%BB%91%E5%8C%85-CABundle"><span class="toc-text">2. 更新 Git 的根证书捆绑包 (CABundle)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8-Git-%E5%91%BD%E4%BB%A4%E6%9B%B4%E6%96%B0%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">方法一：使用 Git 命令更新（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E6%89%8B%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6%E5%8C%85"><span class="toc-text">方法二：手动更新证书包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%98%8E%E7%A1%AE%E6%8C%87%E5%AE%9A-Git-%E7%9A%84%E8%AF%81%E4%B9%A6%E8%B7%AF%E5%BE%84"><span class="toc-text">3. 明确指定 Git 的证书路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%A3%80%E6%9F%A5%E4%BC%81%E4%B8%9A%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83%EF%BC%88%E4%BB%A3%E7%90%86-%E9%98%B2%E7%81%AB%E5%A2%99%EF%BC%89"><span class="toc-text">4. 检查企业网络环境（代理&#x2F;防火墙）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%B8%B4%E6%97%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%88%E9%9D%9E%E5%B8%B8%E4%B8%8D%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">5. 临时解决方案（非常不推荐）</span></a></li></ol></li></ol>
+  </div>
+</div>
+
   
 
   <div class="ui segment background-thin-yellow">
