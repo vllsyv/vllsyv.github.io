@@ -35,7 +35,7 @@
 
 <title>
     
-    markdown基础语法 |
+    tag: redis |
     
     Issac的个人博客
 </title>
@@ -122,86 +122,85 @@
     <div class="ui grid stackable">
       <!-- 文章列表 -->
 <div class="eleven wide column">
-  <div class="ui segment background-thin-yellow content">
-    <div class="ui segment background-thin-yellow border-background-less">
-      <div class="ui segment background-thin-yellow border-background-less">
-        <h2 class="ui center aligned icon header">markdown基础语法</h2>
-        <div class="ui segment background-thin-yellow border-background-less">
-          <!-- 文章info -->
-          <div class="row-flex-center">
-            <h5 class="header margin-left-right-10"><i class="address user icon"></i></h5>
-            <h5 class="header margin-left-right-10"><i class="address calendar alternate outline icon"></i>2025年08月22日</h5>
-            <h5 class="header margin-left-right-10"><i class="address eye icon"></i><span id="twikoo_visitors">0</span></h5>
-            <h5 class="header margin-left-right-10"><i class="address folder open outline icon"></i>
-              
-              <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
-              </h5>
-            <h5 class="header margin-left-right-10"><i class="address tag icon"></i>
-              
-              <a class="tag-none-link" href="/tags/markdown/" rel="tag">markdown</a> ， <a class="tag-none-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a>
-              </h5>
+  <div class="ui segment background-thin-yellow">
+    <!-- 标签栏 -->
+    <div class="row-flex flex-wrap tag1-lists">
+      <a href="/tags/" class="tabs-nav">全部</a>
+      
+      <a href="/tags/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/" class="tabs-nav">异常解决 (1)</a>
+      
+      <a href="/tags/git/" class="tabs-nav">git (3)</a>
+      
+      <a href="/tags/%E6%95%99%E7%A8%8B/" class="tabs-nav">教程 (3)</a>
+      
+      <a href="/tags/hexo/" class="tabs-nav">hexo (3)</a>
+      
+      <a href="/tags/%E5%AE%89%E8%A3%85%E5%AE%9E%E6%93%8D/" class="tabs-nav">安装实操 (3)</a>
+      
+      <a href="/tags/markdown/" class="tabs-nav">markdown (1)</a>
+      
+      <a href="/tags/%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" class="tabs-nav">底层原理 (1)</a>
+      
+      <a href="/tags/redis/" class="tabs-nav">redis (1)</a>
+      
+      <a class="tabs-nav" id="tag1-next"><i class="angle double right icon"></i>展开更多</a>
+    </div>
+  </div>
+
+  
+  <!-- 列表栏 -->
+  <!-- 文章列表 -->
+  <div class="ui segment background-thin-yellow">
+    <!-- 文章标题 -->
+    <div class="ui segment row-flex-left margin-padding-less border-background-less">
+      <h3 class="ui header margin-5">
+        <a href="/2025/08/23/redis%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/">
+          redis底层原理
+        </a>
+      </h3>
+      <div class="ui background-thin-red label margin-5 font-white">
+        
+          <a class="category-link" href="/categories/%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/">底层原理</a>
+        
+      </div>
+    </div>
+    <!-- 文章内容简介 -->
+    <div class="ui grid stackable">
+      <!-- 缩略图 -->
+      <div class="five wide column">
+        <div class="ui card margin-10">
+          <div class="image">
+            <img class="ui small image" src="/img/default.png">
           </div>
         </div>
-        <!-- 分割线 -->
-        <div class="ui divider title-divider"></div>
       </div>
-      <div class="ui segment background-thin-yellow content border-background-less top-15"> <p>本文将全面介绍 Markdown 的基础语法，从标题、文本格式到列表、链接、代码块等常用元素，帮助您快速上手并熟练使用这一强大的文本标记工具。无论您是初学者还是希望系统复习的使用者，都能从本文中找到所需的语法参考和使用技巧。</p>
-<span id="more"></span>
-<h2 id="标题语法"><a href="#标题语法" class="headerlink" title="标题语法"></a>标题语法</h2><h4 id="ATX-风格标题"><a href="#ATX-风格标题" class="headerlink" title="ATX 风格标题"></a>ATX 风格标题</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
-<h4 id="Setext-风格标题"><a href="#Setext-风格标题" class="headerlink" title="Setext 风格标题"></a>Setext 风格标题</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">一级标题</span><br><span class="line">========</span><br><span class="line"></span><br><span class="line">二级标题</span><br><span class="line">--------</span><br></pre></td></tr></table></figure>
-
-<h2 id="文本格式"><a href="#文本格式" class="headerlink" title="文本格式"></a>文本格式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">**粗体文本**</span><br><span class="line">__粗体文本__</span><br><span class="line"></span><br><span class="line">*斜体文本*</span><br><span class="line">_斜体文本_</span><br><span class="line"></span><br><span class="line">***粗斜体文本***</span><br><span class="line">___粗斜体文本___</span><br><span class="line"></span><br><span class="line">~~删除线文本~~</span><br><span class="line"></span><br><span class="line">`行内代码`</span><br></pre></td></tr></table></figure>
-
-<h2 id="段落和换行"><a href="#段落和换行" class="headerlink" title="段落和换行"></a>段落和换行</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">这是第一个段落。</span><br><span class="line"></span><br><span class="line">这是第二个段落。</span><br><span class="line"></span><br><span class="line">这是一行文本。  </span><br><span class="line">这是新的一行（行尾两个空格）。</span><br></pre></td></tr></table></figure>
-
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">无序列表</span><br><span class="line"></span><br><span class="line">- 项目 1</span><br><span class="line">- 项目 2</span><br><span class="line">    - 子项目 2.1</span><br><span class="line">    - 子项目 2.2</span><br><span class="line"></span><br><span class="line">* 使用星号</span><br><span class="line">+ 使用加号</span><br><span class="line">  有序列表</span><br><span class="line"></span><br><span class="line">1. 第一项</span><br><span class="line">2. 第二项</span><br><span class="line">    1. 子项目 2.1</span><br><span class="line">    2. 子项目 2.2</span><br><span class="line">3. 第三项</span><br><span class="line">   任务列表</span><br><span class="line"></span><br><span class="line">- [x] 已完成任务</span><br><span class="line">- [ ] 未完成任务</span><br><span class="line">- [ ] 另一个任务</span><br></pre></td></tr></table></figure>
-<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[链接文本](https://www.markdownlang.com)</span><br><span class="line">[带标题的链接](https://www.markdownlang.com &quot;链接标题&quot;)</span><br><span class="line"></span><br><span class="line">[参考式链接][1]</span><br><span class="line">[1]: https://www.markdownlang.com &quot;链接标题&quot;</span><br><span class="line"></span><br><span class="line">&lt;https://www.markdownlang.com&gt;</span><br><span class="line">&lt;email@example.com&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">![替代文本](image.jpg)</span><br><span class="line">![带标题的图片](image.jpg &quot;图片标题&quot;)</span><br><span class="line"></span><br><span class="line">[![图片链接](image.jpg)](https://www.markdownlang.com)</span><br></pre></td></tr></table></figure>
-
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; 这是一个引用</span><br><span class="line">&gt;</span><br><span class="line">&gt; 引用的第二段</span><br><span class="line"></span><br><span class="line">&gt; 一级引用</span><br><span class="line">&gt; &gt; 二级引用</span><br><span class="line">&gt; &gt; &gt; 三级引用</span><br></pre></td></tr></table></figure>
+      <!-- 内容简介 -->
+      <div class="eleven wide column">
+        <div class="ui piled segment border-background-less intro">
+          <a href="/2025/08/23/redis%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/">
+            <p>详解redis的底层设计，工作原理等
 
 
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">行内代码</span><br><span class="line"></span><br><span class="line">使用 `code` 标记行内代码</span><br><span class="line">代码块</span><br><span class="line"></span><br><span class="line">```</span><br><span class="line">普通代码块</span><br><span class="line">```</span><br><span class="line"></span><br><span class="line">```javascript</span><br><span class="line">// 带语法高亮的代码块</span><br><span class="line">function hello() &#123;</span><br><span class="line">    console.log(&quot;Hello, World!&quot;);</span><br><span class="line">&#125;</span><br><span class="line">```</span><br><span class="line">缩进代码块</span><br><span class="line"></span><br><span class="line">    这是缩进代码块</span><br><span class="line">    使用 4 个空格或 1 个制表符</span><br><span class="line">```</span><br></pre></td></tr></table></figure>
-
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 左对齐 | 居中对齐 | 右对齐 |</span><br><span class="line">|--------|:--------:|-------:|</span><br><span class="line">| 内容1  |   内容2   |  内容3 |</span><br><span class="line">| 内容4  |   内容5   |  内容6 |</span><br></pre></td></tr></table></figure>
-
-<h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"></span><br><span class="line">***</span><br><span class="line"></span><br><span class="line">___</span><br><span class="line"></span><br><span class="line">- - -</span><br></pre></td></tr></table></figure>
-
-<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">方式1：行尾添加两个空格  </span><br><span class="line">然后换行</span><br><span class="line"></span><br><span class="line">方式2：使用 HTML 标签&lt;br&gt;</span><br><span class="line">换行</span><br><span class="line"></span><br><span class="line">方式3：空行分隔</span><br><span class="line"></span><br><span class="line">新段落</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">\*不是斜体\*</span><br><span class="line">\#不是标题</span><br><span class="line">\[不是链接\]</span><br><span class="line">可转义的字符：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">\   反斜杠</span><br><span class="line">`   反引号</span><br><span class="line">*   星号</span><br><span class="line">    _   下划线</span><br><span class="line">    &#123;&#125;  大括号</span><br><span class="line">    []  方括号</span><br><span class="line">    ()  圆括号</span><br><span class="line">#   井号</span><br><span class="line">+   加号</span><br><span class="line">-   减号</span><br><span class="line">    .   句点</span><br><span class="line">    !   感叹号</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<h2 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">这里有一个脚注引用[^1]。</span><br><span class="line"></span><br><span class="line">[^1]: 这是脚注的内容。</span><br></pre></td></tr></table></figure>
-
-<h2 id="HTML-标签"><a href="#HTML-标签" class="headerlink" title="HTML 标签"></a>HTML 标签</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Markdown 支持内嵌 HTML：</span><br><span class="line"></span><br><span class="line">&lt;strong&gt;粗体&lt;/strong&gt;</span><br><span class="line">&lt;em&gt;斜体&lt;/em&gt;</span><br><span class="line">&lt;mark&gt;高亮&lt;/mark&gt;</span><br><span class="line">&lt;del&gt;删除&lt;/del&gt;</span><br><span class="line">&lt;ins&gt;插入&lt;/ins&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="数学公式（扩展语法）"><a href="#数学公式（扩展语法）" class="headerlink" title="数学公式（扩展语法）"></a>数学公式（扩展语法）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">行内公式：$E = mc^2$</span><br><span class="line"></span><br><span class="line">块级公式：</span><br><span class="line">$$</span><br><span class="line">\sum_&#123;i=1&#125;^n a_i = 0</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
-
-<h2 id="快速提示"><a href="#快速提示" class="headerlink" title="快速提示"></a>快速提示</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">最常用的语法</span><br><span class="line"># - 标题</span><br><span class="line">**text** - 粗体</span><br><span class="line">*text* - 斜体</span><br><span class="line">[text](url) - 链接</span><br><span class="line">![alt](url) - 图片</span><br><span class="line">- item - 列表</span><br><span class="line">&gt; quote - 引用</span><br><span class="line">`code` - 代码</span><br></pre></td></tr></table></figure>
-
-<h2 id="记忆技巧"><a href="#记忆技巧" class="headerlink" title="记忆技巧"></a>记忆技巧</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 井号像楼梯，表示标题层级</span><br><span class="line">* 星号表示强调，一个斜体两个粗体</span><br><span class="line">  []() 方括号显示文本，圆括号是链接</span><br><span class="line">  ![]() 感叹号表示图片</span><br><span class="line">&gt; 大于号像箭头，指向引用内容</span><br></pre></td></tr></table></figure></div>
-
-
-      <!-- 文章结尾处理 -->
-      <div class="ui divider title-divider"></div>
+数据结构动态简单字符串SDSRedis中的字符串是一种最基本的数据结构，它可以存储任意长度的字符串。底层设计实现中，并不是用c语言的数组直接存储字符串，而是在外套了一层结构体。称之为Simple Dynamic String，简称SDS，SDS不只是为了存储字符串，也可以存储二进制信息，如图片等其数据结构如下  
+1234567891011121314151617181......</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- 分割线 -->
+    <div class="ui divider title-divider"></div>
+    <!-- 文章info -->
+    <div class="row-flex-left">
+      <h5 class="header margin-left-right-10"><i class="address user icon"></i>匿名</h5>
+      <h5 class="header margin-left-right-10"><i class="address calendar alternate outline icon"></i>2025年08月23日</h5>
+      <h5 class="header margin-left-right-10"><i class="address tag icon"></i>
+        
+          <a class="tag-none-link" href="/tags/redis/" rel="tag">redis</a> ， <a class="tag-none-link" href="/tags/%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" rel="tag">底层原理</a>
+        
+      </h5>
     </div>
   </div>
-
-  <!-- 上一篇、下一篇 -->
-  <div class="ui segment background-thin-yellow content">
-    <div class="ui segment background-thin-yellow border-background-less page-prev-next">
-      
-      <a href="/2025/08/22/github-ssl%E9%AA%8C%E8%AF%81%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title='github ssl验证异常解决方案'>
-        <span class="page-prev">上一篇</span>
-      </a>
-      
-
-      
-      <a href="/2025/08/22/%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AEGithub%E4%BD%BF%E7%94%A8SSH%E5%AF%86%E9%92%A5/" title='如何配置Github使用SSH密钥'>
-        <span class="page-next">下一篇</span>
-      </a>
-      
-
-    </div>
-  </div>
-
+  
 
 
 </div>
@@ -209,17 +208,6 @@
       <!-- 侧边栏 -->
 <div class="five wide column">
   <!-- 文章目录 -->
-  
-  <!-- 文章内容页面中的目录栏 -->
-<div class="ui segment background-thin-yellow article-toc">
-  <div class="ui segment background-title-red padding-title">
-    <h4 class="header ">文章目录：</h4>
-  </div>
-  <div class="container-toc">
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E9%A2%98%E8%AF%AD%E6%B3%95"><span class="toc-text">标题语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ATX-%E9%A3%8E%E6%A0%BC%E6%A0%87%E9%A2%98"><span class="toc-text">ATX 风格标题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Setext-%E9%A3%8E%E6%A0%BC%E6%A0%87%E9%A2%98"><span class="toc-text">Setext 风格标题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="toc-text">文本格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AE%B5%E8%90%BD%E5%92%8C%E6%8D%A2%E8%A1%8C"><span class="toc-text">段落和换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-text">列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5"><span class="toc-text">链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%89%87"><span class="toc-text">图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-text">引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC"><span class="toc-text">表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%9A%94%E7%BA%BF"><span class="toc-text">分隔线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E8%A1%8C"><span class="toc-text">换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-text">转义字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%B3%A8"><span class="toc-text">脚注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-%E6%A0%87%E7%AD%BE"><span class="toc-text">HTML 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%EF%BC%88%E6%89%A9%E5%B1%95%E8%AF%AD%E6%B3%95%EF%BC%89"><span class="toc-text">数学公式（扩展语法）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8F%90%E7%A4%BA"><span class="toc-text">快速提示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%B0%E5%BF%86%E6%8A%80%E5%B7%A7"><span class="toc-text">记忆技巧</span></a></li></ol>
-  </div>
-</div>
-
   
 
   <div class="ui segment background-thin-yellow">
