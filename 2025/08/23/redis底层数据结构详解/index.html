@@ -317,13 +317,104 @@
 <li><code>dictEntry</code> 包含键值对和指向下一个 <code>dictEntry</code> 的指针。 实际的kv值就存储在这里，当k重复时，就会出现dictEntry指向下一个dictEntry的情况<br>结构图如下</li>
 </ul>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">+------------------------+</span><br><span class="line">|      dict结构           |</span><br><span class="line">+------------------------+</span><br><span class="line">| ...                    |</span><br><span class="line">| ht[2] (dictht数组)      |</span><br><span class="line">+------------------------+</span><br><span class="line">       |</span><br><span class="line">       v</span><br><span class="line">+------------------------+</span><br><span class="line">|    dictht结构           |  </span><br><span class="line">+------------------------+</span><br><span class="line">| size (哈希表大小)        |</span><br><span class="line">| sizemask (哈希掩码)      |</span><br><span class="line">| used (已使用节点数)       |</span><br><span class="line">| table (dictEntry**指针) | </span><br><span class="line">+------------------------+</span><br><span class="line">       |</span><br><span class="line">       v</span><br><span class="line">+-------------------------------------------------+</span><br><span class="line">|            dictEntry* 数组（哈希桶数组）           | </span><br><span class="line">+-------------------------------------------------+</span><br><span class="line">| [0] | [1] | [2] | [3] | ... | [size-1]          |</span><br><span class="line">+-----+-----+-----+-----+-----+-------------------+</span><br><span class="line">          |          |           |</span><br><span class="line">          |          |           |</span><br><span class="line">          v          v           v</span><br><span class="line">     +--------+ +--------+ +--------+</span><br><span class="line">     | entry1 | | entry2 | | entryN |</span><br><span class="line">     +--------+ +--------+ +--------+</span><br><span class="line">     | key    | | key    | | key    |</span><br><span class="line">     | value  | | value  | | value  |</span><br><span class="line">     | next   | | next   | | next   |</span><br><span class="line">     +---|----+ +---|----+ +---|----+</span><br><span class="line">         |          |          |</span><br><span class="line">         v          v          v</span><br><span class="line">     +--------+ +--------+ +--------+</span><br><span class="line">     | entry3 | | entry4 | |  NULL  |</span><br><span class="line">     +--------+ +--------+ +--------+</span><br><span class="line">     | key    | | key    |</span><br><span class="line">     | value  | | value  |</span><br><span class="line">     | next   | | next   |</span><br><span class="line">     +---|----+ +---|----+</span><br><span class="line">         |          |</span><br><span class="line">         v          v</span><br><span class="line">     +--------+ +--------+</span><br><span class="line">     |  NULL  | |  NULL  |</span><br><span class="line">     +--------+ +--------+</span><br></pre></td></tr></table></figure>
-<h4 id="2-数据结构详细说明"><a href="#2-数据结构详细说明" class="headerlink" title="2. 数据结构详细说明"></a>2. 数据结构详细说明</h4><p>dict结构</p>
+<h4 id="2-数据结构详细说明"><a href="#2-数据结构详细说明" class="headerlink" title="2. 数据结构详细说明"></a>2. 数据结构详细说明</h4><p>字典 (dict)：这是整个字典的顶层结构。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span></span><br><span class="line">    dictType *type;  <span class="comment">// 类型特定函数，用于实现多态（如计算哈希值、复制键、对比键等）</span></span><br><span class="line">    <span class="type">void</span> *privdata;  <span class="comment">// 私有数据，传递给类型特定函数</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];    <span class="comment">// 两个哈希表，一般情况下只使用 ht[0]，Rehash 时使用 ht[1]</span></span><br><span class="line">    <span class="type">long</span> rehashidx;  <span class="comment">// Rehash 的进度，单位为桶（bucket）。值为 -1 表示未在进行 Rehash</span></span><br><span class="line">    <span class="type">int16_t</span> pauserehash; <span class="comment">// Rehash 暂停标志，大于0时表示暂停。用于调试或某些命令</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>dict结构是整个字典的顶层结构<br>dictht结构</li>
+<li>dict结构是整个字典的顶层结构</li>
 </ul>
+<p>哈希表 (dictht)：这才是真正存储数据的地方。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dictht</span> &#123;</span></span><br><span class="line">    dictEntry **table;      <span class="comment">// 指向一个桶（bucket）数组，每个元素是一个链表指针</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> size;     <span class="comment">// 桶数组的大小，总是 2^n</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> sizemask; <span class="comment">// 用于计算索引值的掩码，等于 size-1</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> used;     <span class="comment">// 当前哈希表已有的键值对数量</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="3-数据的插入和删除过程"><a href="#3-数据的插入和删除过程" class="headerlink" title="3. 数据的插入和删除过程"></a>3. 数据的插入和删除过程</h4><h4 id="4-rehash过程以及渐进式rehash"><a href="#4-rehash过程以及渐进式rehash" class="headerlink" title="4. rehash过程以及渐进式rehash"></a>4. rehash过程以及渐进式rehash</h4><h4 id="5-hash算法的选择"><a href="#5-hash算法的选择" class="headerlink" title="5. hash算法的选择"></a>5. hash算法的选择</h4><h4 id="6-hash类型的升级策略"><a href="#6-hash类型的升级策略" class="headerlink" title="6. hash类型的升级策略"></a>6. hash类型的升级策略</h4></div>
+<ul>
+<li>table：是一个数组，数组的每个元素是一个指向 dictEntry 的指针（可以理解为链表的头指针）。</li>
+<li>sizemask：和键的哈希值做 与 操作，来决定键应该落在哪个桶里，这比取模运算更快。index &#x3D; hash &amp; sizemask。.</li>
+</ul>
+<p>哈希表节点 (dictEntry)：存储具体的键值对。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> &#123;</span></span><br><span class="line">    <span class="type">void</span> *key;              <span class="comment">// 键</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        <span class="type">void</span> *val;</span><br><span class="line">        <span class="type">uint64_t</span> u64;</span><br><span class="line">        <span class="type">int64_t</span> s64;</span><br><span class="line">        <span class="type">double</span> d;</span><br><span class="line">    &#125; v;                    <span class="comment">// 值（可以是指针或64位整数/浮点数）</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span> <span class="comment">// 指向下一个节点，形成链表</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>next 指针用于将哈希到同一个桶的多个节点连接起来，解决哈希冲突。</li>
+</ul>
+<h4 id="3-数据的插入和删除过程"><a href="#3-数据的插入和删除过程" class="headerlink" title="3. 数据的插入和删除过程"></a>3. 数据的插入和删除过程</h4><ul>
+<li>数据插入过程<ol>
+<li>计算键的哈希值：hash &#x3D; dict-&gt;type-&gt;hashFunction(key)。 </li>
+<li>根据 rehashidx 判断是否正在进行 Rehash： <ul>
+<li>如果没有 Rehash (rehashidx &#x3D;&#x3D; -1)，使用 ht[0] 计算索引：index &#x3D; hash &amp; ht[0].sizemask。 </li>
+<li>如果正在 Rehash (rehashidx !&#x3D; -1)，则同时使用 ht[0] 和 ht[1]。首先在 ht[0] 中查找，如果没找到，再去 ht[1] 中查找。插入操作则直接写入 ht[1]。</li>
+</ul>
+</li>
+<li>遍历找到的桶对应的链表，对比键（使用 dict-&gt;type-&gt;keyCompare）。 </li>
+<li>根据操作是查找还是插入进行后续处理。</li>
+</ol>
+</li>
+</ul>
+<h4 id="4-哈希值的计算以及哈希算法的选择"><a href="#4-哈希值的计算以及哈希算法的选择" class="headerlink" title="4. 哈希值的计算以及哈希算法的选择"></a>4. 哈希值的计算以及哈希算法的选择</h4><ol>
+<li>计算原始哈希值：使用一个哈希函数，将任意长度的键（key）转换成一个唯一的、固定长度的整数值（如 uint64_t）。<br>简化代码如下</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint64_t</span> <span class="title function_">dictGenHashFunction</span><span class="params">(<span class="type">const</span> <span class="type">void</span> *key, <span class="type">int</span> len)</span> &#123;</span><br><span class="line">    <span class="comment">// 获取服务器启动时生成的随机种子</span></span><br><span class="line">    <span class="type">uint64_t</span> seed = get_hash_seed(); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 动态选择算法</span></span><br><span class="line">    <span class="keyword">if</span> (len &lt;= HASH_USING_SEED_LENGTH_THRESHOLD) &#123;</span><br><span class="line">        <span class="keyword">return</span> murmurhash2(key, len, seed);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> siphash(key, len, seed);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Redis 并非始终使用同一个哈希函数，其选择策略在不同版本中有演进，核心目的是在性能与安全性之间取得平衡。</li>
+<li>Redis 4.0 及之前：单一的 MurmurHash2<ul>
+<li>算法：hash &#x3D; murmurhash2(key, len)<ul>
+<li>特点：<ul>
+<li>高性能：非加密型哈希函数，计算速度非常快。</li>
+<li>分布均匀：产生的哈希值随机分布性（avalanche effect - 雪崩效应）很好，能有效避免一般情况下的哈希冲突。</li>
+<li>安全性问题：MurmurHash2 及其早期版本存在一个种子可预测性漏洞。如果攻击者知道了 Redis 实例使用的哈希种子，就可以精心构造大量具有相同哈希值的键（哈希碰撞攻击）。这会导致哈希表退化成链表，查询操作从 O(1) 恶化为 O(n)，从而消耗大量 CPU，引发服务拒绝（DoS）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Redis 6.0 及之后：动态哈希算法选择<ul>
+<li>为了解决上述安全问题，Redis 6.0 引入了更智能的策略：<ol>
+<li>使用随机化的哈希种子（Hash Seed）<br>Redis 实例在启动时，会生成一个随机的哈希种子（dictGenHashFunction 的 seed 参数），而不是一个固定值。这使得攻击者无法预测哈希函数的输出。</li>
+<li>根据键的长度动态选择算法<br>这是更核心的优化。策略如下： <ul>
+<li>对于短键（长度 &lt;&#x3D; HASH_USING_SEED_LENGTH_THRESHOLD，默认 1024 字节）： <ul>
+<li>算法：仍使用 MurmurHash2。</li>
+<li>原因：性能极高。对于绝大多数场景（键名通常很短，如 “user:1000:name”），能保证最佳性能。由于种子是随机的，短键情况下遭遇碰撞攻击的难度大大增加。</li>
+</ul>
+</li>
+<li>对于长键（长度 &gt; HASH_USING_SEED_LENGTH_THRESHOLD，默认 1024 字节）：<ul>
+<li>算法：切换为 SipHash。</li>
+<li>原因：SipHash 是一种加密强度的伪随机函数。即使攻击者知道种子，想构造出碰撞的键在计算上也是不可行的（需要极高的成本），从而彻底免疫哈希碰撞攻击。虽然它的计算速度比 MurmurHash2 慢，但对于长键（本身就不常见），为了安全牺牲一点性能是值得的。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><p>扰动与混合（Redis 6.0+）：为了安全，将这个原始哈希值进行再次混合。<br>在某些内部路径中，Redis 会对哈希值 h 进行一个额外的“扰动”操作，例如 h ^ (h &gt;&gt; 46)，目的是让哈希值的低位更加随机，进一步减少冲突的概率。但这个操作不是每次都必须的，核心的哈希值已经由第一步的高质量算法保证了。</p>
+</li>
+<li><p>计算索引位置：利用哈希表的 sizemask，将这个整数值映射到哈希表数组的一个具体下标上。<br>得到最终的哈希值 h（一个 64 位无符号整数）后，并不是用它直接作为数组下标，因为数组大小 size 远小于 2^64。</p>
+<p>Redis 使用了一个非常高效的方法：</p>
+<ol>
+<li>确保哈希表的大小 size 永远是 2 的 n 次方（例如 4, 8, 16, 32, …）。</li>
+<li>那么 sizemask 就永远是 size - 1（二进制表示为一串连续的 1，例如 size&#x3D;8, sizemask&#x3D;7，二进制为 0111）。</li>
+<li>将哈希值 h 和 sizemask 进行按位与（&amp;） 操作。</li>
+</ol>
+<p>举个例子：</p>
+<ul>
+<li>哈希表大小 size &#x3D; 16</li>
+<li>sizemask &#x3D; size - 1 &#x3D; 15 (二进制 00001111)</li>
+<li>假设一个键的哈希值 h &#x3D; 12345 (二进制 0011000000111001)</li>
+<li>计算索引：index &#x3D; 12345 &amp; 15<ul>
+<li>0011000000111001 (h &#x3D; 12345)</li>
+<li>&amp; 0000000000001111 (sizemask &#x3D; 15)</li>
+<li>&#x3D; 0000000000001001 (index &#x3D; 9)</li>
+</ul>
+</li>
+<li>为什么这样做？<ul>
+<li>性能极高：按位与(&amp;) 操作是 CPU 最基本的指令，速度远快于 取模运算(%)。</li>
+<li>效果等价：因为 sizemask 是连续的 1，所以 h &amp; sizemask 的结果等价于 h % size，但确保了结果一定在 [0, size-1] 的范围内。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="5-rehash过程以及渐进式rehash"><a href="#5-rehash过程以及渐进式rehash" class="headerlink" title="5. rehash过程以及渐进式rehash"></a>5. rehash过程以及渐进式rehash</h4><h4 id="6-Hash数据类型的升级策略"><a href="#6-Hash数据类型的升级策略" class="headerlink" title="6. Hash数据类型的升级策略"></a>6. Hash数据类型的升级策略</h4></div>
 
 
       <!-- 文章结尾处理 -->
@@ -363,7 +454,7 @@
     <h4 class="header ">文章目录：</h4>
   </div>
   <div class="container-toc">
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%AE%80%E5%8D%95%E5%AD%97%E7%AC%A6%E4%B8%B2SDS"><span class="toc-text">动态简单字符串SDS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="toc-text">1. 概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">2. 数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%BC%98%E7%82%B9"><span class="toc-text">3. 优点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-text">链表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-%E6%A6%82%E8%BF%B0"><span class="toc-text">0. 概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Redis%E9%93%BE%E8%A1%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">1. Redis链表类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%EF%BC%88linkedlist%EF%BC%89"><span class="toc-text">2. 双向链表（linkedlist）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8%EF%BC%88ziplist%EF%BC%89"><span class="toc-text">3. 压缩列表（ziplist）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%BF%AB%E9%80%9F%E5%88%97%E8%A1%A8%EF%BC%88quicklist%EF%BC%89"><span class="toc-text">4. 快速列表（quicklist）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8"><span class="toc-text">字典</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%BE%84%E6%B8%85"><span class="toc-text">0. 基础概念澄清</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A6%82%E8%A7%88"><span class="toc-text">1. 数据结构概览</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E"><span class="toc-text">2. 数据结构详细说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4%E8%BF%87%E7%A8%8B"><span class="toc-text">3. 数据的插入和删除过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-rehash%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B8%90%E8%BF%9B%E5%BC%8Frehash"><span class="toc-text">4. rehash过程以及渐进式rehash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-hash%E7%AE%97%E6%B3%95%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">5. hash算法的选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-hash%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8D%87%E7%BA%A7%E7%AD%96%E7%95%A5"><span class="toc-text">6. hash类型的升级策略</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%AE%80%E5%8D%95%E5%AD%97%E7%AC%A6%E4%B8%B2SDS"><span class="toc-text">动态简单字符串SDS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="toc-text">1. 概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">2. 数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%BC%98%E7%82%B9"><span class="toc-text">3. 优点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-text">链表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-%E6%A6%82%E8%BF%B0"><span class="toc-text">0. 概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Redis%E9%93%BE%E8%A1%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">1. Redis链表类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%EF%BC%88linkedlist%EF%BC%89"><span class="toc-text">2. 双向链表（linkedlist）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8%EF%BC%88ziplist%EF%BC%89"><span class="toc-text">3. 压缩列表（ziplist）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%BF%AB%E9%80%9F%E5%88%97%E8%A1%A8%EF%BC%88quicklist%EF%BC%89"><span class="toc-text">4. 快速列表（quicklist）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8"><span class="toc-text">字典</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%BE%84%E6%B8%85"><span class="toc-text">0. 基础概念澄清</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A6%82%E8%A7%88"><span class="toc-text">1. 数据结构概览</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E"><span class="toc-text">2. 数据结构详细说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4%E8%BF%87%E7%A8%8B"><span class="toc-text">3. 数据的插入和删除过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%93%88%E5%B8%8C%E5%80%BC%E7%9A%84%E8%AE%A1%E7%AE%97%E4%BB%A5%E5%8F%8A%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">4. 哈希值的计算以及哈希算法的选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-rehash%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B8%90%E8%BF%9B%E5%BC%8Frehash"><span class="toc-text">5. rehash过程以及渐进式rehash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-Hash%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8D%87%E7%BA%A7%E7%AD%96%E7%95%A5"><span class="toc-text">6. Hash数据类型的升级策略</span></a></li></ol></li></ol>
   </div>
 </div>
 
@@ -390,11 +481,15 @@
     </div>
     <div class="row-flex flex-wrap categories-lists">
       
+      <a href="/categories/%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%8B%E8%AF%95/" class="category-tab">互联网测试</a>
+      
+      <a href="/categories/%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%8B%E8%AF%95/%E6%95%99%E7%A8%8B/" class="category-tab">教程</a>
+      
       <a href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/" class="category-tab">异常解决</a>
       
-      <a href="/categories/%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" class="category-tab">底层原理</a>
-      
       <a href="/categories/%E6%95%99%E7%A8%8B/" class="category-tab">教程</a>
+      
+      <a href="/categories/%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" class="category-tab">底层原理</a>
       
       <a href="/categories/%E5%AE%89%E8%A3%85%E5%AE%9E%E6%93%8D/" class="category-tab">安装实操</a>
       
@@ -408,19 +503,27 @@
     </div>
     <div class="row-flex flex-wrap tabs-lists">
       
+      <a href="/tags/%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%8B%E8%AF%95/" class="category-tab">互联网测试</a>
+      
+      <a href="/tags/PostMan/" class="category-tab">PostMan</a>
+      
+      <a href="/tags/Appium/" class="category-tab">Appium</a>
+      
+      <a href="/tags/TCP/" class="category-tab">TCP</a>
+      
       <a href="/tags/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/" class="category-tab">异常解决</a>
       
       <a href="/tags/git/" class="category-tab">git</a>
       
-      <a href="/tags/%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" class="category-tab">底层原理</a>
-      
-      <a href="/tags/redis/" class="category-tab">redis</a>
-      
       <a href="/tags/%E6%95%99%E7%A8%8B/" class="category-tab">教程</a>
+      
+      <a href="/tags/hexo/" class="category-tab">hexo</a>
       
       <a href="/tags/markdown/" class="category-tab">markdown</a>
       
-      <a href="/tags/hexo/" class="category-tab">hexo</a>
+      <a href="/tags/%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" class="category-tab">底层原理</a>
+      
+      <a href="/tags/redis/" class="category-tab">redis</a>
       
       <a href="/tags/%E5%AE%89%E8%A3%85%E5%AE%9E%E6%93%8D/" class="category-tab">安装实操</a>
       
@@ -501,7 +604,7 @@
         },
         calendar: [{
             left: 'center',
-            range: ["2024-09-02", "2025-09-02"],
+            range: ["2024-09-16", "2025-09-16"],
             cellSize: [13, 13],
             splitLine: {
                 show: false
@@ -533,7 +636,7 @@
             type: 'heatmap',
             coordinateSystem: 'calendar',
             calendarIndex: 0,
-            data: [["2024-09-02", 0], ["2024-09-03", 0], ["2024-09-04", 0], ["2024-09-05", 0], ["2024-09-06", 0], ["2024-09-07", 0], ["2024-09-08", 0], ["2024-09-09", 0], ["2024-09-10", 0], ["2024-09-11", 0], ["2024-09-12", 0], ["2024-09-13", 0], ["2024-09-14", 0], ["2024-09-15", 0], ["2024-09-16", 0], ["2024-09-17", 0], ["2024-09-18", 0], ["2024-09-19", 0], ["2024-09-20", 0], ["2024-09-21", 0], ["2024-09-22", 0], ["2024-09-23", 0], ["2024-09-24", 0], ["2024-09-25", 0], ["2024-09-26", 0], ["2024-09-27", 0], ["2024-09-28", 0], ["2024-09-29", 0], ["2024-09-30", 0], ["2024-10-01", 0], ["2024-10-02", 0], ["2024-10-03", 0], ["2024-10-04", 0], ["2024-10-05", 0], ["2024-10-06", 0], ["2024-10-07", 0], ["2024-10-08", 0], ["2024-10-09", 0], ["2024-10-10", 0], ["2024-10-11", 0], ["2024-10-12", 0], ["2024-10-13", 0], ["2024-10-14", 0], ["2024-10-15", 0], ["2024-10-16", 0], ["2024-10-17", 0], ["2024-10-18", 0], ["2024-10-19", 0], ["2024-10-20", 0], ["2024-10-21", 0], ["2024-10-22", 0], ["2024-10-23", 0], ["2024-10-24", 0], ["2024-10-25", 0], ["2024-10-26", 0], ["2024-10-27", 0], ["2024-10-28", 0], ["2024-10-29", 0], ["2024-10-30", 0], ["2024-10-31", 0], ["2024-11-01", 0], ["2024-11-02", 0], ["2024-11-03", 0], ["2024-11-04", 0], ["2024-11-05", 0], ["2024-11-06", 0], ["2024-11-07", 0], ["2024-11-08", 0], ["2024-11-09", 0], ["2024-11-10", 0], ["2024-11-11", 0], ["2024-11-12", 0], ["2024-11-13", 0], ["2024-11-14", 0], ["2024-11-15", 0], ["2024-11-16", 0], ["2024-11-17", 0], ["2024-11-18", 0], ["2024-11-19", 0], ["2024-11-20", 0], ["2024-11-21", 0], ["2024-11-22", 0], ["2024-11-23", 0], ["2024-11-24", 0], ["2024-11-25", 0], ["2024-11-26", 0], ["2024-11-27", 0], ["2024-11-28", 0], ["2024-11-29", 0], ["2024-11-30", 0], ["2024-12-01", 0], ["2024-12-02", 0], ["2024-12-03", 0], ["2024-12-04", 0], ["2024-12-05", 0], ["2024-12-06", 0], ["2024-12-07", 0], ["2024-12-08", 0], ["2024-12-09", 0], ["2024-12-10", 0], ["2024-12-11", 0], ["2024-12-12", 0], ["2024-12-13", 0], ["2024-12-14", 0], ["2024-12-15", 0], ["2024-12-16", 0], ["2024-12-17", 0], ["2024-12-18", 0], ["2024-12-19", 0], ["2024-12-20", 0], ["2024-12-21", 0], ["2024-12-22", 0], ["2024-12-23", 0], ["2024-12-24", 0], ["2024-12-25", 0], ["2024-12-26", 0], ["2024-12-27", 0], ["2024-12-28", 0], ["2024-12-29", 0], ["2024-12-30", 0], ["2024-12-31", 0], ["2025-01-01", 0], ["2025-01-02", 0], ["2025-01-03", 0], ["2025-01-04", 0], ["2025-01-05", 0], ["2025-01-06", 0], ["2025-01-07", 0], ["2025-01-08", 0], ["2025-01-09", 0], ["2025-01-10", 0], ["2025-01-11", 0], ["2025-01-12", 0], ["2025-01-13", 0], ["2025-01-14", 0], ["2025-01-15", 0], ["2025-01-16", 0], ["2025-01-17", 0], ["2025-01-18", 0], ["2025-01-19", 0], ["2025-01-20", 0], ["2025-01-21", 0], ["2025-01-22", 0], ["2025-01-23", 0], ["2025-01-24", 0], ["2025-01-25", 0], ["2025-01-26", 0], ["2025-01-27", 0], ["2025-01-28", 0], ["2025-01-29", 0], ["2025-01-30", 0], ["2025-01-31", 0], ["2025-02-01", 0], ["2025-02-02", 0], ["2025-02-03", 0], ["2025-02-04", 0], ["2025-02-05", 0], ["2025-02-06", 0], ["2025-02-07", 0], ["2025-02-08", 0], ["2025-02-09", 0], ["2025-02-10", 0], ["2025-02-11", 0], ["2025-02-12", 0], ["2025-02-13", 0], ["2025-02-14", 0], ["2025-02-15", 0], ["2025-02-16", 0], ["2025-02-17", 0], ["2025-02-18", 0], ["2025-02-19", 0], ["2025-02-20", 0], ["2025-02-21", 0], ["2025-02-22", 0], ["2025-02-23", 0], ["2025-02-24", 0], ["2025-02-25", 0], ["2025-02-26", 0], ["2025-02-27", 0], ["2025-02-28", 0], ["2025-03-01", 0], ["2025-03-02", 0], ["2025-03-03", 0], ["2025-03-04", 0], ["2025-03-05", 0], ["2025-03-06", 0], ["2025-03-07", 0], ["2025-03-08", 0], ["2025-03-09", 0], ["2025-03-10", 0], ["2025-03-11", 0], ["2025-03-12", 0], ["2025-03-13", 0], ["2025-03-14", 0], ["2025-03-15", 0], ["2025-03-16", 0], ["2025-03-17", 0], ["2025-03-18", 0], ["2025-03-19", 0], ["2025-03-20", 0], ["2025-03-21", 0], ["2025-03-22", 0], ["2025-03-23", 0], ["2025-03-24", 0], ["2025-03-25", 0], ["2025-03-26", 0], ["2025-03-27", 0], ["2025-03-28", 0], ["2025-03-29", 0], ["2025-03-30", 0], ["2025-03-31", 0], ["2025-04-01", 0], ["2025-04-02", 0], ["2025-04-03", 0], ["2025-04-04", 0], ["2025-04-05", 0], ["2025-04-06", 0], ["2025-04-07", 0], ["2025-04-08", 0], ["2025-04-09", 0], ["2025-04-10", 0], ["2025-04-11", 0], ["2025-04-12", 0], ["2025-04-13", 0], ["2025-04-14", 0], ["2025-04-15", 0], ["2025-04-16", 0], ["2025-04-17", 0], ["2025-04-18", 0], ["2025-04-19", 0], ["2025-04-20", 0], ["2025-04-21", 0], ["2025-04-22", 0], ["2025-04-23", 0], ["2025-04-24", 0], ["2025-04-25", 0], ["2025-04-26", 0], ["2025-04-27", 0], ["2025-04-28", 0], ["2025-04-29", 0], ["2025-04-30", 0], ["2025-05-01", 0], ["2025-05-02", 0], ["2025-05-03", 0], ["2025-05-04", 0], ["2025-05-05", 0], ["2025-05-06", 0], ["2025-05-07", 0], ["2025-05-08", 0], ["2025-05-09", 0], ["2025-05-10", 0], ["2025-05-11", 0], ["2025-05-12", 0], ["2025-05-13", 0], ["2025-05-14", 0], ["2025-05-15", 0], ["2025-05-16", 0], ["2025-05-17", 0], ["2025-05-18", 0], ["2025-05-19", 0], ["2025-05-20", 0], ["2025-05-21", 0], ["2025-05-22", 0], ["2025-05-23", 0], ["2025-05-24", 0], ["2025-05-25", 0], ["2025-05-26", 0], ["2025-05-27", 0], ["2025-05-28", 0], ["2025-05-29", 0], ["2025-05-30", 0], ["2025-05-31", 0], ["2025-06-01", 0], ["2025-06-02", 0], ["2025-06-03", 0], ["2025-06-04", 0], ["2025-06-05", 0], ["2025-06-06", 0], ["2025-06-07", 0], ["2025-06-08", 0], ["2025-06-09", 0], ["2025-06-10", 0], ["2025-06-11", 0], ["2025-06-12", 0], ["2025-06-13", 0], ["2025-06-14", 0], ["2025-06-15", 0], ["2025-06-16", 0], ["2025-06-17", 0], ["2025-06-18", 0], ["2025-06-19", 0], ["2025-06-20", 0], ["2025-06-21", 0], ["2025-06-22", 0], ["2025-06-23", 0], ["2025-06-24", 0], ["2025-06-25", 0], ["2025-06-26", 0], ["2025-06-27", 0], ["2025-06-28", 0], ["2025-06-29", 0], ["2025-06-30", 0], ["2025-07-01", 0], ["2025-07-02", 0], ["2025-07-03", 0], ["2025-07-04", 0], ["2025-07-05", 0], ["2025-07-06", 0], ["2025-07-07", 0], ["2025-07-08", 0], ["2025-07-09", 0], ["2025-07-10", 0], ["2025-07-11", 0], ["2025-07-12", 0], ["2025-07-13", 0], ["2025-07-14", 0], ["2025-07-15", 0], ["2025-07-16", 0], ["2025-07-17", 0], ["2025-07-18", 0], ["2025-07-19", 0], ["2025-07-20", 0], ["2025-07-21", 0], ["2025-07-22", 0], ["2025-07-23", 0], ["2025-07-24", 0], ["2025-07-25", 0], ["2025-07-26", 0], ["2025-07-27", 0], ["2025-07-28", 0], ["2025-07-29", 0], ["2025-07-30", 0], ["2025-07-31", 0], ["2025-08-01", 0], ["2025-08-02", 0], ["2025-08-03", 0], ["2025-08-04", 0], ["2025-08-05", 0], ["2025-08-06", 0], ["2025-08-07", 0], ["2025-08-08", 0], ["2025-08-09", 0], ["2025-08-10", 0], ["2025-08-11", 0], ["2025-08-12", 0], ["2025-08-13", 0], ["2025-08-14", 0], ["2025-08-15", 0], ["2025-08-16", 0], ["2025-08-17", 0], ["2025-08-18", 0], ["2025-08-19", 0], ["2025-08-20", 0], ["2025-08-21", 1], ["2025-08-22", 5], ["2025-08-23", 2], ["2025-08-24", 0], ["2025-08-25", 0], ["2025-08-26", 0], ["2025-08-27", 0], ["2025-08-28", 0], ["2025-08-29", 0], ["2025-08-30", 0], ["2025-08-31", 0], ["2025-09-01", 0], ["2025-09-02", 0]]
+            data: [["2024-09-16", 0], ["2024-09-17", 0], ["2024-09-18", 0], ["2024-09-19", 0], ["2024-09-20", 0], ["2024-09-21", 0], ["2024-09-22", 0], ["2024-09-23", 0], ["2024-09-24", 0], ["2024-09-25", 0], ["2024-09-26", 0], ["2024-09-27", 0], ["2024-09-28", 0], ["2024-09-29", 0], ["2024-09-30", 0], ["2024-10-01", 0], ["2024-10-02", 0], ["2024-10-03", 0], ["2024-10-04", 0], ["2024-10-05", 0], ["2024-10-06", 0], ["2024-10-07", 0], ["2024-10-08", 0], ["2024-10-09", 0], ["2024-10-10", 0], ["2024-10-11", 0], ["2024-10-12", 0], ["2024-10-13", 0], ["2024-10-14", 0], ["2024-10-15", 0], ["2024-10-16", 0], ["2024-10-17", 0], ["2024-10-18", 0], ["2024-10-19", 0], ["2024-10-20", 0], ["2024-10-21", 0], ["2024-10-22", 0], ["2024-10-23", 0], ["2024-10-24", 0], ["2024-10-25", 0], ["2024-10-26", 0], ["2024-10-27", 0], ["2024-10-28", 0], ["2024-10-29", 0], ["2024-10-30", 0], ["2024-10-31", 0], ["2024-11-01", 0], ["2024-11-02", 0], ["2024-11-03", 0], ["2024-11-04", 0], ["2024-11-05", 0], ["2024-11-06", 0], ["2024-11-07", 0], ["2024-11-08", 0], ["2024-11-09", 0], ["2024-11-10", 0], ["2024-11-11", 0], ["2024-11-12", 0], ["2024-11-13", 0], ["2024-11-14", 0], ["2024-11-15", 0], ["2024-11-16", 0], ["2024-11-17", 0], ["2024-11-18", 0], ["2024-11-19", 0], ["2024-11-20", 0], ["2024-11-21", 0], ["2024-11-22", 0], ["2024-11-23", 0], ["2024-11-24", 0], ["2024-11-25", 0], ["2024-11-26", 0], ["2024-11-27", 0], ["2024-11-28", 0], ["2024-11-29", 0], ["2024-11-30", 0], ["2024-12-01", 0], ["2024-12-02", 0], ["2024-12-03", 0], ["2024-12-04", 0], ["2024-12-05", 0], ["2024-12-06", 0], ["2024-12-07", 0], ["2024-12-08", 0], ["2024-12-09", 0], ["2024-12-10", 0], ["2024-12-11", 0], ["2024-12-12", 0], ["2024-12-13", 0], ["2024-12-14", 0], ["2024-12-15", 0], ["2024-12-16", 0], ["2024-12-17", 0], ["2024-12-18", 0], ["2024-12-19", 0], ["2024-12-20", 0], ["2024-12-21", 0], ["2024-12-22", 0], ["2024-12-23", 0], ["2024-12-24", 0], ["2024-12-25", 0], ["2024-12-26", 0], ["2024-12-27", 0], ["2024-12-28", 0], ["2024-12-29", 0], ["2024-12-30", 0], ["2024-12-31", 0], ["2025-01-01", 0], ["2025-01-02", 0], ["2025-01-03", 0], ["2025-01-04", 0], ["2025-01-05", 0], ["2025-01-06", 0], ["2025-01-07", 0], ["2025-01-08", 0], ["2025-01-09", 0], ["2025-01-10", 0], ["2025-01-11", 0], ["2025-01-12", 0], ["2025-01-13", 0], ["2025-01-14", 0], ["2025-01-15", 0], ["2025-01-16", 0], ["2025-01-17", 0], ["2025-01-18", 0], ["2025-01-19", 0], ["2025-01-20", 0], ["2025-01-21", 0], ["2025-01-22", 0], ["2025-01-23", 0], ["2025-01-24", 0], ["2025-01-25", 0], ["2025-01-26", 0], ["2025-01-27", 0], ["2025-01-28", 0], ["2025-01-29", 0], ["2025-01-30", 0], ["2025-01-31", 0], ["2025-02-01", 0], ["2025-02-02", 0], ["2025-02-03", 0], ["2025-02-04", 0], ["2025-02-05", 0], ["2025-02-06", 0], ["2025-02-07", 0], ["2025-02-08", 0], ["2025-02-09", 0], ["2025-02-10", 0], ["2025-02-11", 0], ["2025-02-12", 0], ["2025-02-13", 0], ["2025-02-14", 0], ["2025-02-15", 0], ["2025-02-16", 0], ["2025-02-17", 0], ["2025-02-18", 0], ["2025-02-19", 0], ["2025-02-20", 0], ["2025-02-21", 0], ["2025-02-22", 0], ["2025-02-23", 0], ["2025-02-24", 0], ["2025-02-25", 0], ["2025-02-26", 0], ["2025-02-27", 0], ["2025-02-28", 0], ["2025-03-01", 0], ["2025-03-02", 0], ["2025-03-03", 0], ["2025-03-04", 0], ["2025-03-05", 0], ["2025-03-06", 0], ["2025-03-07", 0], ["2025-03-08", 0], ["2025-03-09", 0], ["2025-03-10", 0], ["2025-03-11", 0], ["2025-03-12", 0], ["2025-03-13", 0], ["2025-03-14", 0], ["2025-03-15", 0], ["2025-03-16", 0], ["2025-03-17", 0], ["2025-03-18", 0], ["2025-03-19", 0], ["2025-03-20", 0], ["2025-03-21", 0], ["2025-03-22", 0], ["2025-03-23", 0], ["2025-03-24", 0], ["2025-03-25", 0], ["2025-03-26", 0], ["2025-03-27", 0], ["2025-03-28", 0], ["2025-03-29", 0], ["2025-03-30", 0], ["2025-03-31", 0], ["2025-04-01", 0], ["2025-04-02", 0], ["2025-04-03", 0], ["2025-04-04", 0], ["2025-04-05", 0], ["2025-04-06", 0], ["2025-04-07", 0], ["2025-04-08", 0], ["2025-04-09", 0], ["2025-04-10", 0], ["2025-04-11", 0], ["2025-04-12", 0], ["2025-04-13", 0], ["2025-04-14", 0], ["2025-04-15", 0], ["2025-04-16", 0], ["2025-04-17", 0], ["2025-04-18", 0], ["2025-04-19", 0], ["2025-04-20", 0], ["2025-04-21", 0], ["2025-04-22", 0], ["2025-04-23", 0], ["2025-04-24", 0], ["2025-04-25", 0], ["2025-04-26", 0], ["2025-04-27", 0], ["2025-04-28", 0], ["2025-04-29", 0], ["2025-04-30", 0], ["2025-05-01", 0], ["2025-05-02", 0], ["2025-05-03", 0], ["2025-05-04", 0], ["2025-05-05", 0], ["2025-05-06", 0], ["2025-05-07", 0], ["2025-05-08", 0], ["2025-05-09", 0], ["2025-05-10", 0], ["2025-05-11", 0], ["2025-05-12", 0], ["2025-05-13", 0], ["2025-05-14", 0], ["2025-05-15", 0], ["2025-05-16", 0], ["2025-05-17", 0], ["2025-05-18", 0], ["2025-05-19", 0], ["2025-05-20", 0], ["2025-05-21", 0], ["2025-05-22", 0], ["2025-05-23", 0], ["2025-05-24", 0], ["2025-05-25", 0], ["2025-05-26", 0], ["2025-05-27", 0], ["2025-05-28", 0], ["2025-05-29", 0], ["2025-05-30", 0], ["2025-05-31", 0], ["2025-06-01", 0], ["2025-06-02", 0], ["2025-06-03", 0], ["2025-06-04", 0], ["2025-06-05", 0], ["2025-06-06", 0], ["2025-06-07", 0], ["2025-06-08", 0], ["2025-06-09", 0], ["2025-06-10", 0], ["2025-06-11", 0], ["2025-06-12", 0], ["2025-06-13", 0], ["2025-06-14", 0], ["2025-06-15", 0], ["2025-06-16", 0], ["2025-06-17", 0], ["2025-06-18", 0], ["2025-06-19", 0], ["2025-06-20", 0], ["2025-06-21", 0], ["2025-06-22", 0], ["2025-06-23", 0], ["2025-06-24", 0], ["2025-06-25", 0], ["2025-06-26", 0], ["2025-06-27", 0], ["2025-06-28", 0], ["2025-06-29", 0], ["2025-06-30", 0], ["2025-07-01", 0], ["2025-07-02", 0], ["2025-07-03", 0], ["2025-07-04", 0], ["2025-07-05", 0], ["2025-07-06", 0], ["2025-07-07", 0], ["2025-07-08", 0], ["2025-07-09", 0], ["2025-07-10", 0], ["2025-07-11", 0], ["2025-07-12", 0], ["2025-07-13", 0], ["2025-07-14", 0], ["2025-07-15", 0], ["2025-07-16", 0], ["2025-07-17", 0], ["2025-07-18", 0], ["2025-07-19", 0], ["2025-07-20", 0], ["2025-07-21", 0], ["2025-07-22", 0], ["2025-07-23", 0], ["2025-07-24", 0], ["2025-07-25", 0], ["2025-07-26", 0], ["2025-07-27", 0], ["2025-07-28", 0], ["2025-07-29", 0], ["2025-07-30", 0], ["2025-07-31", 0], ["2025-08-01", 0], ["2025-08-02", 0], ["2025-08-03", 0], ["2025-08-04", 0], ["2025-08-05", 0], ["2025-08-06", 0], ["2025-08-07", 0], ["2025-08-08", 0], ["2025-08-09", 0], ["2025-08-10", 0], ["2025-08-11", 0], ["2025-08-12", 0], ["2025-08-13", 0], ["2025-08-14", 0], ["2025-08-15", 0], ["2025-08-16", 0], ["2025-08-17", 0], ["2025-08-18", 0], ["2025-08-19", 0], ["2025-08-20", 0], ["2025-08-21", 1], ["2025-08-22", 5], ["2025-08-23", 2], ["2025-08-24", 0], ["2025-08-25", 0], ["2025-08-26", 0], ["2025-08-27", 0], ["2025-08-28", 0], ["2025-08-29", 0], ["2025-08-30", 0], ["2025-08-31", 0], ["2025-09-01", 0], ["2025-09-02", 0], ["2025-09-03", 1], ["2025-09-04", 0], ["2025-09-05", 0], ["2025-09-06", 0], ["2025-09-07", 0], ["2025-09-08", 0], ["2025-09-09", 0], ["2025-09-10", 0], ["2025-09-11", 0], ["2025-09-12", 0], ["2025-09-13", 0], ["2025-09-14", 0], ["2025-09-15", 0], ["2025-09-16", 2]]
         }]
     };
     myChart.setOption(option);
@@ -549,7 +652,7 @@
 <script language=javascript>
   function show_date_time() {
     window.setTimeout("show_date_time()", 1000);
-    BirthDay = new Date("5/2/2021 22:22:45");
+    BirthDay = new Date("8/21/2025 22:22:45");
     today = new Date();
     timeold = (today.getTime() - BirthDay.getTime());
     sectimeold = timeold / 1000
@@ -749,7 +852,7 @@
       name: '分类统计',
       type: 'pie',
       radius: '55%',
-      data: [{"name":"异常解决","value":1},{"name":"底层原理","value":1},{"name":"教程","value":3},{"name":"安装实操","value":3}]
+      data: [{"name":"互联网测试","value":19},{"name":"教程","value":18},{"name":"异常解决","value":1},{"name":"教程","value":3},{"name":"底层原理","value":1},{"name":"安装实操","value":3}]
     }],
       tooltip: {}
   };
