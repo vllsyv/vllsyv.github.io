@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <!-- semantic UI 样式资源 -->
+  
+<link rel="stylesheet" href="/lib/semantic.min.css">
+
+  
+<link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+
+  
+<link rel="stylesheet" href="/css/Mycss.css">
+
+  
+<link rel="stylesheet" href="/css/content.css">
+
+  
+<link rel="stylesheet" href="/css/gototop.css">
+
+  
+<link rel="stylesheet" href="/css/search.css">
+
+  
+<link rel="stylesheet" href="/css/mobile.css">
+
+  
+<link rel="stylesheet" href="/css/countdowntimer.css">
+
+
+
+  <!--Title-->
+
+<title>
+    
+    测试工程师学编程2：Python中requests库和pytest的应用 |
+    
+    Issac的个人博客
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Issac的个人博客" type="application/atom+xml">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <!-- header -->
+<header class="ui segment attached background-deep-green border-none">
+  <div class="ui container header-container grid  stackable">
+    <div class="left floated six wide column">
+      <h1 class="ui header font-thin-yellow">
+        <div class="content">
+          <a href="/" class="title-href">Issac的个人博客</a>
+          <div class="ui divider title-divider"></div>
+          <div class="sub header font-thin-yellow">希望就在前方</div>
+        </div>
+      </h1>
+    </div>
+    <div class="right floated six wide column">
+      <div class="ui content floated right">
+        <div class="content ">
+          <div class="sub header font-thin-yellow row-flex-right">
+
+
+          </div>
+          <div class="ui divider title-divider"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+  <!-- 菜单导航栏 -->
+<div class="ui segment attached background-thin-yellow padding-less">
+  <div class="ui container">
+    <div class="ui menu border-background-less borderless stackable mobile-hide">
+      <a href="#" class="ui icon button background-thin-yellow menu-button">
+        <div class="page-title">
+          Issac的个人博客
+        </div>
+        <i class="black sidebar icon top-left"></i>
+      </a>
+      <a href="/" class="item moblie-hide" data-path="/">首页</a>
+      <a href="/archive" class="item moblie-hide" data-path="/archive/">文章列表</a>
+      <a href="/categories" class="item moblie-hide" data-path="/categories/">分类列表</a>
+      <a href="/tags" class="item moblie-hide" data-path="/tags/">标签列表</a>
+      <a href="" class="ui item right moblie-hide" id="nav-search"><i class="icon search"></i></a>
+    </div>
+  </div>
+  <!-- 搜索框的弹出内容 -->
+  <div class="ui modal">
+    <!-- 上半部分 -->
+    <div class="header search-title-background search-title-center">
+      <h3>搜索</h3>
+    </div>
+    <!-- 中部 -->
+    <div class="image local-search col-flex">
+      <div class="ui segment background-thin-yellow">
+        <div class="ui action input row-flex">
+          <input type="text" placeholder="搜索..." id="local-search-input">
+          <button class="ui button" id="local-search-close">清空</button>
+        </div>
+        <div id="local-search-result" class="search-result overflow-y local-search col-flex"></div>
+      </div>
+    </div>
+    <div class="actions background-thin-yellow">
+      点击旁边阴影部分可以退出搜索
+    </div>
+  </div>
+</div>
+
+  <!-- 文章主体布局 -->
+  <div class="ui container margin-top-30">
+    <div class="ui grid stackable">
+      <!-- 文章列表 -->
+<div class="eleven wide column">
+  <div class="ui segment background-thin-yellow content">
+    <div class="ui segment background-thin-yellow border-background-less">
+      <div class="ui segment background-thin-yellow border-background-less">
+        <h2 class="ui center aligned icon header">测试工程师学编程2：Python中requests库和pytest的应用</h2>
+        <div class="ui segment background-thin-yellow border-background-less">
+          <!-- 文章info -->
+          <div class="row-flex-center">
+            <h5 class="header margin-left-right-10"><i class="address user icon"></i></h5>
+            <h5 class="header margin-left-right-10"><i class="address calendar alternate outline icon"></i>2025年09月18日</h5>
+            <h5 class="header margin-left-right-10"><i class="address eye icon"></i><span id="twikoo_visitors">0</span></h5>
+            <h5 class="header margin-left-right-10"><i class="address folder open outline icon"></i>
+              
+              <a class="category-link" href="/categories/%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%8B%E8%AF%95/">互联网测试</a> ， <a class="category-link" href="/categories/%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%8B%E8%AF%95/%E6%95%99%E7%A8%8B/">教程</a>
+              </h5>
+            <h5 class="header margin-left-right-10"><i class="address tag icon"></i>
+              
+              <a class="tag-none-link" href="/tags/python/" rel="tag">python</a> ， <a class="tag-none-link" href="/tags/%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%8B%E8%AF%95/" rel="tag">互联网测试</a>
+              </h5>
+          </div>
+        </div>
+        <!-- 分割线 -->
+        <div class="ui divider title-divider"></div>
+      </div>
+      <div class="ui segment background-thin-yellow content border-background-less top-15"> <p>作为测试工程师，我们正处在一个对技能要求日益多元化的时代。功能测试是基石，但自动化测试能力已成为提升测试效率、保证软件质量、并实现个人职业突破的关键。在众多技术栈中，Python凭借其简洁易懂的语法和极其丰富的生态系统，成为了自动化测试，特别是接口自动化测试的首选语言。</p>
+<p>本系列文章旨在带领您，从测试的视角出发，系统地学习如何运用Python中的<code>requests</code>库和<code>pytest</code>框架，最终能工程化地构建一个接口自动化测试平台。我们将摒弃华而不实的示例，以一个真实的<strong>供应链金融项目——垫资代采功能</strong>作为业务背景，贯穿始终，让技术学习与业务实践紧密结合。</p>
+<h3 id="业务背景：垫资代采业务流程浅析"><a href="#业务背景：垫资代采业务流程浅析" class="headerlink" title="业务背景：垫资代采业务流程浅析"></a>业务背景：垫资代采业务流程浅析</h3><p>在我们编写第一行代码之前，深刻理解被测业务是成功设计自动化用例的前提。垫资代采是一种常见的供应链金融模式，其核心流程可以简化为：</p>
+<ol>
+<li><strong>代采单下单</strong>：客户（融资方）发起一笔代采订单，指定需要采购的货物、数量等信息。</li>
+<li><strong>前置风控</strong>：在正式下单前或下单时，系统必须调用风控系统，评估客户资质，获取可用额度和产品费率配置。<strong>这是流程得以继续的关键前置条件。</strong></li>
+<li><strong>预付款</strong>：平台根据风控结果，代表客户向供应商支付部分货款（预付款）。</li>
+<li><strong>尾款 &amp; 税款</strong>：货物到港或满足其他条件后，平台支付剩余尾款和相关税款。</li>
+<li><strong>入库</strong>：货物进入平台指定仓库。</li>
+<li><strong>客户分批赎回</strong>：客户根据自身资金情况，分批申请赎回部分货物。</li>
+<li><strong>抄码 &amp; 结算单</strong>：平台进行货物抄码（确认货物信息），并生成结算单（明确本次赎回需支付的金额）。</li>
+<li><strong>客户付款</strong>：客户根据结算单付款。</li>
+<li><strong>发货</strong>：平台收到款项后，安排发货。</li>
+</ol>
+<p>这个流程涉及状态多、链路长，非常适合通过接口自动化来保障各环节的稳定性和数据一致性。</p>
+<h3 id="第一部分：接口测试利器-Requests库详解"><a href="#第一部分：接口测试利器-Requests库详解" class="headerlink" title="第一部分：接口测试利器 - Requests库详解"></a>第一部分：接口测试利器 - Requests库详解</h3><p>接口测试的本质是模拟客户端向服务器发送请求，并验证服务器返回的响应是否符合预期。在Python世界中，<code>requests</code>库是完成这一任务最简单优雅的HTTP库。</p>
+<h4 id="1-1-安装与环境准备"><a href="#1-1-安装与环境准备" class="headerlink" title="1.1 安装与环境准备"></a>1.1 安装与环境准备</h4><p>首先，确保你的Python环境（建议3.6+）已安装<code>requests</code>库。通过pip命令一键安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install requests</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-发起你的第一个API请求-GET"><a href="#1-2-发起你的第一个API请求-GET" class="headerlink" title="1.2 发起你的第一个API请求 (GET)"></a>1.2 发起你的第一个API请求 (GET)</h4><p>风控环节通常是一个查询接口，我们假设其API为 <code>GET /api/risk-control/&#123;client_id&#125;</code>，用于获取某个客户的额度和费率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义API的URL，这里用占位符代替真实地址和客户ID</span></span><br><span class="line">url = <span class="string">&quot;https://your-api-domain.com/api/risk-control/12345&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加请求头，通常需要认证信息(如Token)和声明内容类型</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&quot;Authorization&quot;</span>: <span class="string">&quot;Bearer your_access_token_here&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发起GET请求</span></span><br><span class="line">response = requests.get(url=url, headers=headers)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印响应状态码</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;状态码:&quot;</span>, response.status_code)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印响应体（JSON格式会自动转换为Python字典）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;响应体:&quot;</span>, response.json())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印响应头</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;响应头:&quot;</span>, response.headers)</span><br></pre></td></tr></table></figure>
+
+<p><strong>代码解析：</strong></p>
+<ul>
+<li><code>requests.get()</code>: 发起一个HTTP GET请求。</li>
+<li><code>url</code>: 请求的目标地址。</li>
+<li><code>headers</code>: 请求头，用于传递元信息，如认证令牌(<code>Authorization</code>)和内容类型(<code>Content-Type</code>)。</li>
+<li><code>response</code>: 请求返回的对象，包含所有响应信息。</li>
+<li><code>response.status_code</code>: HTTP状态码（如200成功，404未找到，500服务器错误）。</li>
+<li><code>response.json()</code>: 如果响应体是JSON格式，这个方法能直接将其解析为Python字典或列表，极其方便。</li>
+<li><code>response.text</code>: 以文本形式获取响应体。</li>
+<li><code>response.headers</code>: 响应头信息。</li>
+</ul>
+<h4 id="1-3-处理复杂的请求-POST"><a href="#1-3-处理复杂的请求-POST" class="headerlink" title="1.3 处理复杂的请求 (POST)"></a>1.3 处理复杂的请求 (POST)</h4><p>现在，我们来模拟最核心的<strong>代采单下单</strong>操作。这通常是一个 <code>POST</code> 请求，需要携带复杂的JSON数据体。</p>
+<p>假设API为 <code>POST /api/purchase-orders</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://your-api-domain.com/api/purchase-orders&quot;</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&quot;Authorization&quot;</span>: <span class="string">&quot;Bearer your_access_token_here&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建请求体（JSON数据），根据项目接口文档定义</span></span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">&quot;clientId&quot;</span>: <span class="number">12345</span>,</span><br><span class="line">    <span class="string">&quot;goods&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;skuId&quot;</span>: <span class="string">&quot;SKU1001&quot;</span>,</span><br><span class="line">            <span class="string">&quot;quantity&quot;</span>: <span class="number">100</span>,</span><br><span class="line">            <span class="string">&quot;unitPrice&quot;</span>: <span class="number">50.5</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&quot;totalAmount&quot;</span>: <span class="number">5050.00</span>,</span><br><span class="line">    <span class="string">&quot;warehouseId&quot;</span>: <span class="string">&quot;WH_CD01&quot;</span>,</span><br><span class="line">    <span class="string">&quot;remark&quot;</span>: <span class="string">&quot;自动化测试创建订单&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发起POST请求，使用json参数，requests会自动序列化为JSON并设置正确的Content-Type</span></span><br><span class="line">response = requests.post(url=url, headers=headers, json=payload)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;状态码:&quot;</span>, response.status_code)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;响应体:&quot;</span>, response.json())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通常创建成功会返回201状态码和订单号等重要信息</span></span><br><span class="line"><span class="keyword">if</span> response.status_code == <span class="number">201</span>:</span><br><span class="line">    order_data = response.json()</span><br><span class="line">    order_id = order_data.get(<span class="string">&#x27;data&#x27;</span>, &#123;&#125;).get(<span class="string">&#x27;orderId&#x27;</span>) <span class="comment"># 根据实际响应结构提取订单ID</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;订单创建成功! 订单ID: <span class="subst">&#123;order_id&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="comment"># 这个order_id需要保存下来，供后续流程（如付款、赎回）的测试用例使用</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>代码解析：</strong></p>
+<ul>
+<li><code>requests.post()</code>: 发起一个HTTP POST请求。</li>
+<li><code>json=payload</code>: 这是传递JSON数据最推荐的方式。<code>requests</code>会将Python字典<code>payload</code>自动序列化为JSON字符串，并同时在请求头中设置<code>Content-Type: application/json</code>。</li>
+<li>响应处理：我们不仅检查状态码，还从响应JSON中提取了业务数据（如<code>orderId</code>）。<strong>在自动化测试中，提取上游接口的返回数据并将其传递到下游接口，是构建连贯测试流程的关键。</strong></li>
+</ul>
+<h4 id="1-4-其他重要操作"><a href="#1-4-其他重要操作" class="headerlink" title="1.4 其他重要操作"></a>1.4 其他重要操作</h4><ul>
+<li><strong>传递URL参数（Params）</strong>：对于GET请求，有时参数需要放在URL中，如<code>/api/orders?status=paid&amp;page=1</code>。  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">params = &#123;<span class="string">&#x27;status&#x27;</span>: <span class="string">&#x27;paid&#x27;</span>, <span class="string">&#x27;page&#x27;</span>: <span class="number">1</span>&#125;</span><br><span class="line">response = requests.get(url, headers=headers, params=params)</span><br></pre></td></tr></table></figure></li>
+<li><strong>处理异常</strong>：网络请求可能失败，需要增加异常处理。  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    response = requests.get(url, timeout=<span class="number">5</span>) <span class="comment"># 设置超时时间</span></span><br><span class="line">    response.raise_for_status() <span class="comment"># 如果状态码不是200，抛出HTTPError异常</span></span><br><span class="line"><span class="keyword">except</span> requests.exceptions.RequestException <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;请求发生错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="第二部分：测试框架核心-Pytest详解"><a href="#第二部分：测试框架核心-Pytest详解" class="headerlink" title="第二部分：测试框架核心 - Pytest详解"></a>第二部分：测试框架核心 - Pytest详解</h3><h4 id="2-1-Pytest的核心优势与安装"><a href="#2-1-Pytest的核心优势与安装" class="headerlink" title="2.1 Pytest的核心优势与安装"></a>2.1 Pytest的核心优势与安装</h4><p><strong>核心优势：</strong></p>
+<ul>
+<li><strong>简洁明了</strong>：使用简单的<code>assert</code>语句进行断言，失败信息清晰易读。</li>
+<li><strong>Fixture机制</strong>：提供强大的 setUp 和 tearDown 功能，是管理测试依赖和资源（如数据库连接、初始化数据）的灵魂。</li>
+<li><strong>参数化测试</strong>：轻松实现多组数据的驱动测试。</li>
+<li><strong>丰富的插件生态</strong>：拥有大量插件（如<code>pytest-html</code>, <code>pytest-xdist</code>, <code>allure-pytest</code>）支持生成报告、并行执行等。</li>
+<li><strong>自动发现</strong>：能自动发现和运行以<code>test_</code>开头或<code>_test</code>结尾的文件和函数。</li>
+</ul>
+<p><strong>安装：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install pytest</span><br><span class="line">pip install pytest-html  <span class="comment"># 可选，用于生成HTML报告</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-编写第一个Pytest测试用例"><a href="#2-2-编写第一个Pytest测试用例" class="headerlink" title="2.2 编写第一个Pytest测试用例"></a>2.2 编写第一个Pytest测试用例</h4><p>让我们将第一部分中“风控查询”的请求改写成一个正式的pytest测试用例。创建一个文件<code>test_risk_control.py</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestRiskControl</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;风控接口测试类&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义一个基础的URL，通常会在所有测试中复用</span></span><br><span class="line">    BASE_URL = <span class="string">&quot;https://your-api-domain.com&quot;</span></span><br><span class="line">    RISK_CONTROL_API = <span class="string">&quot;/api/risk-control/&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_get_risk_control_success</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;测试成功获取客户风控信息&quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 1. 准备测试数据</span></span><br><span class="line">        test_client_id = <span class="number">12345</span></span><br><span class="line">        url = <span class="string">f&quot;<span class="subst">&#123;self.BASE_URL&#125;</span><span class="subst">&#123;self.RISK_CONTROL_API&#125;</span><span class="subst">&#123;test_client_id&#125;</span>&quot;</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">&quot;Authorization&quot;</span>: <span class="string">&quot;Bearer valid_token_here&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2. 发起请求（调用被测对象）</span></span><br><span class="line">        response = requests.get(url=url, headers=headers)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3. 断言验证</span></span><br><span class="line">        <span class="keyword">assert</span> response.status_code == <span class="number">200</span>, <span class="string">f&quot;预期状态码200，实际为<span class="subst">&#123;response.status_code&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">        response_json = response.json()</span><br><span class="line">        <span class="comment"># 断言响应体包含必要的字段</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="string">&quot;creditLimit&quot;</span> <span class="keyword">in</span> response_json.get(<span class="string">&#x27;data&#x27;</span>, &#123;&#125;), <span class="string">&quot;响应体中未找到creditLimit字段&quot;</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="string">&quot;serviceRate&quot;</span> <span class="keyword">in</span> response_json.get(<span class="string">&#x27;data&#x27;</span>, &#123;&#125;), <span class="string">&quot;响应体中未找到serviceRate字段&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 可以进一步断言字段值的有效性，例如额度不能为负</span></span><br><span class="line">        credit_limit = response_json[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;creditLimit&#x27;</span>]</span><br><span class="line">        <span class="keyword">assert</span> credit_limit &gt;= <span class="number">0</span>, <span class="string">f&quot;信用额度<span class="subst">&#123;credit_limit&#125;</span>异常，应为非负数&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我们可以继续添加更多测试用例，例如测试客户不存在、Token失效等场景</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_get_risk_control_with_invalid_token</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;测试使用无效Token时接口是否返回正确的错误信息&quot;&quot;&quot;</span></span><br><span class="line">        test_client_id = <span class="number">12345</span></span><br><span class="line">        url = <span class="string">f&quot;<span class="subst">&#123;self.BASE_URL&#125;</span><span class="subst">&#123;self.RISK_CONTROL_API&#125;</span><span class="subst">&#123;test_client_id&#125;</span>&quot;</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">&quot;Authorization&quot;</span>: <span class="string">&quot;Bearer invalid_token&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        response = requests.get(url=url, headers=headers)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 断言接口应返回401未认证错误</span></span><br><span class="line">        <span class="keyword">assert</span> response.status_code == <span class="number">401</span>, <span class="string">f&quot;预期状态码401，实际为<span class="subst">&#123;response.status_code&#125;</span>&quot;</span></span><br><span class="line">        <span class="comment"># 断言错误信息符合预期</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="string">&quot;Unauthorized&quot;</span> <span class="keyword">in</span> response.text <span class="keyword">or</span> <span class="string">&quot;token&quot;</span> <span class="keyword">in</span> response.text.lower()</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行测试：</strong><br>在终端中，进入该文件所在目录，直接运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest -v test_risk_control.py</span><br></pre></td></tr></table></figure>
+<p><code>-v</code>参数用于显示更详细的执行信息。</p>
+<h4 id="2-3-Pytest的灵魂：Fixture"><a href="#2-3-Pytest的灵魂：Fixture" class="headerlink" title="2.3 Pytest的灵魂：Fixture"></a>2.3 Pytest的灵魂：Fixture</h4><p>Fixture是Pytest用于实现测试前置条件（Setup）和后置清理（Teardown）的核心机制。它比传统的<code>setUp/tearDown</code>方法更灵活、更强大。</p>
+<p>在我们的供应链场景中，很多操作（如下单）需要一个有效的认证Token。我们可以创建一个Fixture来统一管理Token的获取。</p>
+<p>创建一个<code>conftest.py</code>文件（Pytest会自动发现此文件中的Fixture供所有测试使用）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="meta">@pytest.fixture(<span class="params">scope=<span class="string">&quot;session&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">auth_token</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;一个Session级别的Fixture，用于获取认证Token&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\n正在获取认证Token...&quot;</span>)</span><br><span class="line">    login_url = <span class="string">&quot;https://your-api-domain.com/api/login&quot;</span></span><br><span class="line">    login_payload = &#123;</span><br><span class="line">        <span class="string">&quot;username&quot;</span>: <span class="string">&quot;test_automation&quot;</span>,</span><br><span class="line">        <span class="string">&quot;password&quot;</span>: <span class="string">&quot;secure_password&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    response = requests.post(login_url, json=login_payload)</span><br><span class="line">    <span class="keyword">assert</span> response.status_code == <span class="number">200</span>, <span class="string">&quot;登录失败，无法获取Token&quot;</span></span><br><span class="line">    </span><br><span class="line">    token = response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;token&#x27;</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;成功获取Token: <span class="subst">&#123;token[:<span class="number">10</span>]&#125;</span>...&quot;</span>)</span><br><span class="line">    <span class="keyword">yield</span> token  <span class="comment"># 这是Fixture提供数据的地方，测试函数会在此处执行</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nToken使用完毕，执行清理操作（如有需要）。&quot;</span>)</span><br><span class="line">    <span class="comment"># Teardown操作可以放在yield之后，例如关闭Session</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Fixture 作用域 (scope):</strong></p>
+<ul>
+<li><code>function</code> (默认): 每个测试函数执行一次。</li>
+<li><code>class</code>: 每个测试类执行一次。</li>
+<li><code>module</code>: 每个模块执行一次。</li>
+<li><code>session</code>: 一次测试会话（执行一次pytest命令）只执行一次。获取Token这种昂贵操作非常适合用<code>session</code>级别。</li>
+</ul>
+<p>现在，我们可以在测试下单接口时使用这个Fixture：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test_purchase_order.py</span></span><br><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestPurchaseOrder</span>:</span><br><span class="line">    BASE_URL = <span class="string">&quot;https://your-api-domain.com&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过在测试函数参数中指定auth_token，Pytest会自动注入Fixture的返回值</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_create_purchase_order_success</span>(<span class="params">self, auth_token</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;测试成功创建代采单&quot;&quot;&quot;</span></span><br><span class="line">        url = <span class="string">f&quot;<span class="subst">&#123;self.BASE_URL&#125;</span>/api/purchase-orders&quot;</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">&quot;Authorization&quot;</span>: <span class="string">f&quot;Bearer <span class="subst">&#123;auth_token&#125;</span>&quot;</span>, <span class="comment"># 使用Fixture提供的token</span></span><br><span class="line">            <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        payload = &#123; ... &#125; <span class="comment"># 订单信息</span></span><br><span class="line"></span><br><span class="line">        response = requests.post(url=url, headers=headers, json=payload)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> response.status_code == <span class="number">201</span></span><br><span class="line">        <span class="keyword">global</span> created_order_id  <span class="comment"># 仅为示例，实际应用应用更优雅的方式管理</span></span><br><span class="line">        created_order_id = response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;orderId&#x27;</span>]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;在测试中创建的订单ID: <span class="subst">&#123;created_order_id&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-参数化测试-Parametrize"><a href="#2-4-参数化测试-Parametrize" class="headerlink" title="2.4 参数化测试 (Parametrize)"></a>2.4 参数化测试 (Parametrize)</h4><p>对于“下单”接口，我们可能需要测试多种情况：正常下单、商品数量为0、金额为负数等。使用参数化可以避免编写大量重复代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestPurchaseOrder</span>:</span><br><span class="line">    <span class="comment"># ... (其他代码)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用装饰器参数化测试</span></span><br><span class="line"><span class="meta">    @pytest.mark.parametrize(<span class="params"><span class="string">&quot;quantity, expected_status, test_description&quot;</span>, [</span></span></span><br><span class="line"><span class="params"><span class="meta">        (<span class="params"><span class="number">100</span>, <span class="number">201</span>, <span class="string">&quot;正常数量下单&quot;</span></span>),</span></span></span><br><span class="line"><span class="params"><span class="meta">        (<span class="params"><span class="number">0</span>, <span class="number">400</span>, <span class="string">&quot;数量为0应返回客户端错误&quot;</span></span>),</span></span></span><br><span class="line"><span class="params"><span class="meta">        (<span class="params">-<span class="number">5</span>, <span class="number">400</span>, <span class="string">&quot;负数量应返回客户端错误&quot;</span></span>),</span></span></span><br><span class="line"><span class="params"><span class="meta">        (<span class="params"><span class="number">999999</span>, <span class="number">422</span>, <span class="string">&quot;超出库存或额度应返回业务错误&quot;</span></span>), <span class="comment"># 假设业务逻辑如此</span></span></span></span><br><span class="line"><span class="params"><span class="meta">    ]</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_create_order_with_different_quantity</span>(<span class="params">self, auth_token, quantity, expected_status, test_description</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;参数化测试：不同数量值的下单请求&quot;&quot;&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;\n执行用例: <span class="subst">&#123;test_description&#125;</span>&quot;</span>)</span><br><span class="line">        url = <span class="string">f&quot;<span class="subst">&#123;self.BASE_URL&#125;</span>/api/purchase-orders&quot;</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">&quot;Authorization&quot;</span>: <span class="string">f&quot;Bearer <span class="subst">&#123;auth_token&#125;</span>&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        payload = &#123;</span><br><span class="line">            <span class="string">&quot;clientId&quot;</span>: <span class="number">12345</span>,</span><br><span class="line">            <span class="string">&quot;goods&quot;</span>: [&#123;<span class="string">&quot;skuId&quot;</span>: <span class="string">&quot;SKU1001&quot;</span>, <span class="string">&quot;quantity&quot;</span>: quantity, <span class="string">&quot;unitPrice&quot;</span>: <span class="number">50.5</span>&#125;],</span><br><span class="line">            <span class="comment"># ... 其他字段</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        response = requests.post(url=url, headers=headers, json=payload)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 断言状态码符合预期</span></span><br><span class="line">        <span class="keyword">assert</span> response.status_code == expected_status, <span class="string">f&quot;<span class="subst">&#123;test_description&#125;</span>失败&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行此测试，Pytest会自动生成并运行4个独立的测试用例，每个都有清晰的名称和结果。</p>
+<hr>
+<h3 id="第三部分：构建工程化的接口自动化测试平台"><a href="#第三部分：构建工程化的接口自动化测试平台" class="headerlink" title="第三部分：构建工程化的接口自动化测试平台"></a>第三部分：构建工程化的接口自动化测试平台</h3><h4 id="3-1-项目结构规划"><a href="#3-1-项目结构规划" class="headerlink" title="3.1 项目结构规划"></a>3.1 项目结构规划</h4><p>一个良好的项目结构是维护大型测试套件的基础。我们建议如下结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">supply_chain_auto_test/</span><br><span class="line">├── conftest.py              # 共享的Fixture和插件配置</span><br><span class="line">├── pytest.ini               # Pytest配置文件</span><br><span class="line">├── requirements.txt         # 项目依赖</span><br><span class="line">├── tests/                   # 测试用例目录</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── api/</span><br><span class="line">│   │   ├── __init__.py</span><br><span class="line">│   │   ├── test_risk_control.py</span><br><span class="line">│   │   ├── test_purchase_order.py</span><br><span class="line">│   │   └── test_payment.py   # 付款等相关接口</span><br><span class="line">│   └── flow/</span><br><span class="line">│       ├── __init__.py</span><br><span class="line">│       └── test_scf_flow.py  # 业务流程测试（串联多个接口）</span><br><span class="line">├── common/                  # 公共模块</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── request_util.py      # 封装requests请求</span><br><span class="line">│   ├── log_util.py          # 日志工具</span><br><span class="line">│   └── data_util.py         # 数据工具</span><br><span class="line">├── data/                    # 测试数据管理</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   └── test_data.py</span><br><span class="line">└── reports/                 # 测试报告目录（可自动生成）</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-封装请求工具"><a href="#3-2-封装请求工具" class="headerlink" title="3.2 封装请求工具"></a>3.2 封装请求工具</h4><p>为了避免在每个测试用例中重复编写请求代码，我们可以封装一个请求工具类，集中处理请求头、认证、日志记录和异常处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># common/request_util.py</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> common.log_util <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RequestUtil</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.session = requests.Session()  <span class="comment"># 使用Session保持会话</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">send_request</span>(<span class="params">self, method, url, **kwargs</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        发送请求</span></span><br><span class="line"><span class="string">        :param method: 请求方法</span></span><br><span class="line"><span class="string">        :param url: 请求URL</span></span><br><span class="line"><span class="string">        :param kwargs: 其他requests支持的参数，如json, params, headers</span></span><br><span class="line"><span class="string">        :return: response对象</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 可以在这里统一添加base_url，也可以在外面拼接好传入</span></span><br><span class="line">        <span class="comment"># 统一处理headers，比如添加认证头</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;headers&#x27;</span> <span class="keyword">in</span> kwargs:</span><br><span class="line">            headers = kwargs[<span class="string">&#x27;headers&#x27;</span>]</span><br><span class="line">            <span class="comment"># 如果headers中没有Authorization，且session中已有，可以加上</span></span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;Authorization&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> headers <span class="keyword">and</span> <span class="built_in">hasattr</span>(<span class="variable language_">self</span>.session, <span class="string">&#x27;auth_token&#x27;</span>):</span><br><span class="line">                headers[<span class="string">&#x27;Authorization&#x27;</span>] = <span class="string">f&quot;Bearer <span class="subst">&#123;self.session.auth_token&#125;</span>&quot;</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            headers = &#123;&#125;</span><br><span class="line">            <span class="comment"># 同样，如果session中有token，则设置默认header</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">hasattr</span>(<span class="variable language_">self</span>.session, <span class="string">&#x27;auth_token&#x27;</span>):</span><br><span class="line">                headers[<span class="string">&#x27;Authorization&#x27;</span>] = <span class="string">f&quot;Bearer <span class="subst">&#123;self.session.auth_token&#125;</span>&quot;</span></span><br><span class="line">            kwargs[<span class="string">&#x27;headers&#x27;</span>] = headers</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 记录请求日志</span></span><br><span class="line">        logger.info(<span class="string">f&quot;请求方法: <span class="subst">&#123;method&#125;</span>, 请求URL: <span class="subst">&#123;url&#125;</span>&quot;</span>)</span><br><span class="line">        logger.info(<span class="string">f&quot;请求参数: <span class="subst">&#123;kwargs&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 发送请求</span></span><br><span class="line">        response = <span class="variable language_">self</span>.session.request(method, url, **kwargs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 记录响应日志</span></span><br><span class="line">        logger.info(<span class="string">f&quot;响应状态码: <span class="subst">&#123;response.status_code&#125;</span>&quot;</span>)</span><br><span class="line">        logger.info(<span class="string">f&quot;响应内容: <span class="subst">&#123;response.text&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 异常处理，非200状态码可以抛出异常或做其他处理</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> response.ok:</span><br><span class="line">            logger.error(<span class="string">f&quot;请求失败: <span class="subst">&#123;response.status_code&#125;</span>, <span class="subst">&#123;response.text&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="comment"># 可以选择抛出异常，或者返回response由调用者处理</span></span><br><span class="line">            <span class="comment"># raise Exception(f&quot;Request failed with status &#123;response.status_code&#125;&quot;)</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以创建一个全局的工具实例，也可以在Fixture中初始化</span></span><br><span class="line">request_util = RequestUtil()</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-测试数据管理"><a href="#3-3-测试数据管理" class="headerlink" title="3.3 测试数据管理"></a>3.3 测试数据管理</h4><p>测试数据应该与代码分离，便于维护。我们可以使用Python文件、JSON、YAML或数据库来管理数据。这里以Python文件为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data/test_data.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestData</span>:</span><br><span class="line">    <span class="comment"># 风控测试数据</span></span><br><span class="line">    risk_control = &#123;</span><br><span class="line">        <span class="string">&quot;valid_client_id&quot;</span>: <span class="number">12345</span>,</span><br><span class="line">        <span class="string">&quot;invalid_client_id&quot;</span>: <span class="number">99999</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 代采单测试数据</span></span><br><span class="line">    purchase_order = &#123;</span><br><span class="line">        <span class="string">&quot;normal&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;clientId&quot;</span>: <span class="number">12345</span>,</span><br><span class="line">            <span class="string">&quot;goods&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;skuId&quot;</span>: <span class="string">&quot;SKU1001&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;quantity&quot;</span>: <span class="number">100</span>,</span><br><span class="line">                    <span class="string">&quot;unitPrice&quot;</span>: <span class="number">50.5</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;totalAmount&quot;</span>: <span class="number">5050.00</span>,</span><br><span class="line">            <span class="string">&quot;warehouseId&quot;</span>: <span class="string">&quot;WH_CD01&quot;</span>,</span><br><span class="line">            <span class="string">&quot;remark&quot;</span>: <span class="string">&quot;自动化测试创建订单-正常流程&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;invalid_quantity&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;clientId&quot;</span>: <span class="number">12345</span>,</span><br><span class="line">            <span class="string">&quot;goods&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;skuId&quot;</span>: <span class="string">&quot;SKU1001&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;quantity&quot;</span>: -<span class="number">10</span>,</span><br><span class="line">                    <span class="string">&quot;unitPrice&quot;</span>: <span class="number">50.5</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;totalAmount&quot;</span>: -<span class="number">505.00</span>,</span><br><span class="line">            <span class="string">&quot;warehouseId&quot;</span>: <span class="string">&quot;WH_CD01&quot;</span>,</span><br><span class="line">            <span class="string">&quot;remark&quot;</span>: <span class="string">&quot;自动化测试创建订单-非法数量&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 登录信息</span></span><br><span class="line">    login = &#123;</span><br><span class="line">        <span class="string">&quot;username&quot;</span>: <span class="string">&quot;test_automation&quot;</span>,</span><br><span class="line">        <span class="string">&quot;password&quot;</span>: <span class="string">&quot;secure_password&quot;</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-4-清理测试数据（Teardown）"><a href="#3-4-清理测试数据（Teardown）" class="headerlink" title="3.4 清理测试数据（Teardown）"></a>3.4 清理测试数据（Teardown）</h4><p>自动化测试可能会产生测试数据，我们需要在测试结束后清理，以免影响后续测试。这可以在Fixture的Teardown阶段完成。</p>
+<p>例如，我们创建一个Fixture用于创建订单，并在测试完成后删除订单（如果接口支持删除的话，或者通过数据库操作清理）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># conftest.py</span></span><br><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">from</span> common.request_util <span class="keyword">import</span> request_util</span><br><span class="line"><span class="keyword">from</span> data.test_data <span class="keyword">import</span> TestData</span><br><span class="line"></span><br><span class="line"><span class="meta">@pytest.fixture</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_purchase_order</span>(<span class="params">auth_token</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;创建代采单Fixture，并返回订单ID，测试完成后清理&quot;&quot;&quot;</span></span><br><span class="line">    url = <span class="string">f&quot;<span class="subst">&#123;TestData.base_url&#125;</span>/api/purchase-orders&quot;</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&quot;Authorization&quot;</span>: <span class="string">f&quot;Bearer <span class="subst">&#123;auth_token&#125;</span>&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    response = request_util.send_request(<span class="string">&#x27;post&#x27;</span>, url, json=TestData.purchase_order[<span class="string">&#x27;normal&#x27;</span>], headers=headers)</span><br><span class="line">    <span class="keyword">assert</span> response.status_code == <span class="number">201</span></span><br><span class="line">    order_id = response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;orderId&#x27;</span>]</span><br><span class="line">    <span class="keyword">yield</span> order_id  <span class="comment"># 提供订单ID给测试用例使用</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Teardown: 删除订单</span></span><br><span class="line">    <span class="comment"># 注意：这里假设有删除订单的接口，并且该接口需要认证</span></span><br><span class="line">    delete_url = <span class="string">f&quot;<span class="subst">&#123;TestData.base_url&#125;</span>/api/purchase-orders/<span class="subst">&#123;order_id&#125;</span>&quot;</span></span><br><span class="line">    delete_headers = &#123;</span><br><span class="line">        <span class="string">&quot;Authorization&quot;</span>: <span class="string">f&quot;Bearer <span class="subst">&#123;auth_token&#125;</span>&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 发送删除请求，忽略结果（因为可能订单状态已经变化不允许删除，但我们尽力清理）</span></span><br><span class="line">    request_util.send_request(<span class="string">&#x27;delete&#x27;</span>, delete_url, headers=delete_headers)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;清理测试数据：订单<span class="subst">&#123;order_id&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-5-流程测试：串联多个接口"><a href="#3-5-流程测试：串联多个接口" class="headerlink" title="3.5 流程测试：串联多个接口"></a>3.5 流程测试：串联多个接口</h4><p>现在，我们来模拟一个完整的业务流程：从风控获取额度 -&gt; 下单 -&gt; 支付预付款 -&gt; 赎回部分货物 -&gt; 结算 -&gt; 支付尾款。</p>
+<p>我们将这个流程写在一个测试用例中，但注意，流程测试的稳定性依赖于每个环节的稳定性，并且可能需要处理异步操作（如支付回调）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tests/flow/test_scf_flow.py</span></span><br><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> common.request_util <span class="keyword">import</span> request_util</span><br><span class="line"><span class="keyword">from</span> data.test_data <span class="keyword">import</span> TestData</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestScfFlow</span>:</span><br><span class="line">    base_url = TestData.base_url</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_complete_flow</span>(<span class="params">self, auth_token</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;测试完整的垫资代采流程&quot;&quot;&quot;</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">&quot;Authorization&quot;</span>: <span class="string">f&quot;Bearer <span class="subst">&#123;auth_token&#125;</span>&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 1. 获取风控信息</span></span><br><span class="line">        risk_control_url = <span class="string">f&quot;<span class="subst">&#123;self.base_url&#125;</span>/api/risk-control/<span class="subst">&#123;TestData.risk_control[<span class="string">&#x27;valid_client_id&#x27;</span>]&#125;</span>&quot;</span></span><br><span class="line">        risk_response = request_util.send_request(<span class="string">&#x27;get&#x27;</span>, risk_control_url, headers=headers)</span><br><span class="line">        <span class="keyword">assert</span> risk_response.status_code == <span class="number">200</span></span><br><span class="line">        credit_limit = risk_response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;creditLimit&#x27;</span>]</span><br><span class="line">        <span class="keyword">assert</span> credit_limit &gt; <span class="number">0</span>, <span class="string">&quot;信用额度不足，无法进行流程测试&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2. 创建代采单</span></span><br><span class="line">        order_url = <span class="string">f&quot;<span class="subst">&#123;self.base_url&#125;</span>/api/purchase-orders&quot;</span></span><br><span class="line">        order_response = request_util.send_request(<span class="string">&#x27;post&#x27;</span>, order_url, json=TestData.purchase_order[<span class="string">&#x27;normal&#x27;</span>], headers=headers)</span><br><span class="line">        <span class="keyword">assert</span> order_response.status_code == <span class="number">201</span></span><br><span class="line">        order_id = order_response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;orderId&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3. 支付预付款（假设支付接口）</span></span><br><span class="line">        <span class="comment"># 注意：支付可能是一个异步过程，这里简化处理，直接调用支付接口并等待同步结果</span></span><br><span class="line">        prepay_url = <span class="string">f&quot;<span class="subst">&#123;self.base_url&#125;</span>/api/payments/advance&quot;</span></span><br><span class="line">        prepay_payload = &#123;</span><br><span class="line">            <span class="string">&quot;orderId&quot;</span>: order_id,</span><br><span class="line">            <span class="string">&quot;amount&quot;</span>: TestData.purchase_order[<span class="string">&#x27;normal&#x27;</span>][<span class="string">&#x27;totalAmount&#x27;</span>] * <span class="number">0.3</span>  <span class="comment"># 支付30%作为预付款</span></span><br><span class="line">        &#125;</span><br><span class="line">        prepay_response = request_util.send_request(<span class="string">&#x27;post&#x27;</span>, prepay_url, json=prepay_payload, headers=headers)</span><br><span class="line">        <span class="keyword">assert</span> prepay_response.status_code <span class="keyword">in</span> [<span class="number">200</span>, <span class="number">201</span>]  <span class="comment"># 支付成功</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 4. 等待支付状态同步（根据实际业务，可能需要轮询订单状态）</span></span><br><span class="line">        time.sleep(<span class="number">3</span>)  <span class="comment"># 简单等待3秒</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 5. 模拟货物入库（这里可能需要调用入库接口，或者通过数据库更新状态，取决于测试环境）</span></span><br><span class="line">        <span class="comment"># 假设有一个接口可以模拟入库操作</span></span><br><span class="line">        receive_url = <span class="string">f&quot;<span class="subst">&#123;self.base_url&#125;</span>/api/warehouse/receive&quot;</span></span><br><span class="line">        receive_payload = &#123;</span><br><span class="line">            <span class="string">&quot;orderId&quot;</span>: order_id,</span><br><span class="line">            <span class="string">&quot;skus&quot;</span>: TestData.purchase_order[<span class="string">&#x27;normal&#x27;</span>][<span class="string">&#x27;goods&#x27;</span>]</span><br><span class="line">        &#125;</span><br><span class="line">        receive_response = request_util.send_request(<span class="string">&#x27;post&#x27;</span>, receive_url, json=receive_payload, headers=headers)</span><br><span class="line">        <span class="keyword">assert</span> receive_response.status_code == <span class="number">200</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 6. 客户发起赎回（部分）</span></span><br><span class="line">        redeem_url = <span class="string">f&quot;<span class="subst">&#123;self.base_url&#125;</span>/api/redeem-orders&quot;</span></span><br><span class="line">        redeem_payload = &#123;</span><br><span class="line">            <span class="string">&quot;orderId&quot;</span>: order_id,</span><br><span class="line">            <span class="string">&quot;redeemSkus&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;skuId&quot;</span>: <span class="string">&quot;SKU1001&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;quantity&quot;</span>: <span class="number">50</span>  <span class="comment"># 赎回一半</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">        redeem_response = request_util.send_request(<span class="string">&#x27;post&#x27;</span>, redeem_url, json=redeem_payload, headers=headers)</span><br><span class="line">        <span class="keyword">assert</span> redeem_response.status_code == <span class="number">201</span></span><br><span class="line">        redeem_order_id = redeem_response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;redeemOrderId&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 7. 生成结算单并支付</span></span><br><span class="line">        <span class="comment"># 假设根据赎回单生成结算单</span></span><br><span class="line">        settle_url = <span class="string">f&quot;<span class="subst">&#123;self.base_url&#125;</span>/api/settlement-orders&quot;</span></span><br><span class="line">        settle_payload = &#123;</span><br><span class="line">            <span class="string">&quot;redeemOrderId&quot;</span>: redeem_order_id</span><br><span class="line">        &#125;</span><br><span class="line">        settle_response = request_util.send_request(<span class="string">&#x27;post&#x27;</span>, settle_url, json=settle_payload, headers=headers)</span><br><span class="line">        <span class="keyword">assert</span> settle_response.status_code == <span class="number">201</span></span><br><span class="line">        settlement_id = settle_response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;settlementId&#x27;</span>]</span><br><span class="line">        amount_to_pay = settle_response.json()[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;amount&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 支付结算单</span></span><br><span class="line">        pay_settle_url = <span class="string">f&quot;<span class="subst">&#123;self.base_url&#125;</span>/api/payments/settlement&quot;</span></span><br><span class="line">        pay_settle_payload = &#123;</span><br><span class="line">            <span class="string">&quot;settlementId&quot;</span>: settlement_id,</span><br><span class="line">            <span class="string">&quot;amount&quot;</span>: amount_to_pay</span><br><span class="line">        &#125;</span><br><span class="line">        pay_settle_response = request_util.send_request(<span class="string">&#x27;post&#x27;</span>, pay_settle_url, json=pay_settle_payload, headers=headers)</span><br><span class="line">        <span class="keyword">assert</span> pay_settle_response.status_code == <span class="number">200</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 8. 验证订单状态（根据业务验证各个环节的状态）</span></span><br><span class="line">        <span class="comment"># 这里省略了多个状态的验证，实际测试中需要详细验证</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 流程结束，数据清理可以通过Fixture完成，也可以在这里清理</span></span><br><span class="line">        <span class="comment"># 但通常流程测试的数据不建议频繁清理，可能用于问题排查，可以在测试计划结束后统一清理</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-6-生成测试报告"><a href="#3-6-生成测试报告" class="headerlink" title="3.6 生成测试报告"></a>3.6 生成测试报告</h4><p>使用pytest-html插件可以生成HTML测试报告。</p>
+<p>安装后，运行测试时添加参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest -v --html=reports/report.html --self-contained-html</span><br></pre></td></tr></table></figure>
+
+<p>此外，还可以使用Allure框架生成更美观的交互式报告。</p>
+<h4 id="3-7-持续集成"><a href="#3-7-持续集成" class="headerlink" title="3.7 持续集成"></a>3.7 持续集成</h4><p>可以将测试项目接入Jenkins、GitLab CI等持续集成工具，实现定时执行或代码触发执行，并自动发送测试报告。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过这三部分的学习，我们完成了从零开始使用<code>requests</code>和<code>pytest</code>构建一个接口自动化测试平台的旅程。我们涵盖了：</p>
+<ol>
+<li><strong>基础请求</strong>：使用requests发送GET、POST请求。</li>
+<li><strong>测试框架</strong>：使用pytest组织用例、Fixture管理资源、参数化覆盖多场景。</li>
+<li><strong>工程化</strong>：规划项目结构、封装工具类、管理测试数据、清理环境、串联流程测试和生成报告。</li>
+</ol>
+<p>这只是一个起点，实际项目中还会遇到更多挑战，如接口依赖、异步回调、数据库验证、分布式执行等。但掌握了这些核心技能，你已经具备了构建强大接口自动化测试框架的能力。不断实践，逐步完善，你将能构建起一个高度可靠、易于维护的自动化测试体系，为供应链金融项目的质量保驾护航。</p>
+</div>
+
+
+      <!-- 文章结尾处理 -->
+      <div class="ui divider title-divider"></div>
+    </div>
+  </div>
+
+  <!-- 上一篇、下一篇 -->
+  <div class="ui segment background-thin-yellow content">
+    <div class="ui segment background-thin-yellow border-background-less page-prev-next">
+      
+      <a href="/2025/09/19/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%85%A5%E9%97%A8%EF%BC%9AAppium%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98/" title='App自动化测试入门：Appium核心概念与实战'>
+        <span class="page-prev">上一篇</span>
+      </a>
+      
+
+      
+      <a href="/2025/09/18/API-%E6%8E%A5%E5%8F%A3-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98-%E7%94%A8PostMan%E5%92%8CRequests%E6%9E%84%E5%BB%BA%E6%B5%8B%E8%AF%95/" title='API(接口)自动化测试实战:用PostMan和Requests构建测试'>
+        <span class="page-next">下一篇</span>
+      </a>
+      
+
+    </div>
+  </div>
+
+
+
+</div>
+
+      <!-- 侧边栏 -->
+<div class="five wide column">
+  <!-- 文章目录 -->
+  
+  <!-- 文章内容页面中的目录栏 -->
+<div class="ui segment background-thin-yellow article-toc">
+  <div class="ui segment background-title-red padding-title">
+    <h4 class="header ">文章目录：</h4>
+  </div>
+  <div class="container-toc">
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E8%83%8C%E6%99%AF%EF%BC%9A%E5%9E%AB%E8%B5%84%E4%BB%A3%E9%87%87%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E6%B5%85%E6%9E%90"><span class="toc-text">业务背景：垫资代采业务流程浅析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%88%A9%E5%99%A8-Requests%E5%BA%93%E8%AF%A6%E8%A7%A3"><span class="toc-text">第一部分：接口测试利器 - Requests库详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">1.1 安装与环境准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E5%8F%91%E8%B5%B7%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAAPI%E8%AF%B7%E6%B1%82-GET"><span class="toc-text">1.2 发起你的第一个API请求 (GET)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E5%A4%84%E7%90%86%E5%A4%8D%E6%9D%82%E7%9A%84%E8%AF%B7%E6%B1%82-POST"><span class="toc-text">1.3 处理复杂的请求 (POST)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E5%85%B6%E4%BB%96%E9%87%8D%E8%A6%81%E6%93%8D%E4%BD%9C"><span class="toc-text">1.4 其他重要操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E6%A0%B8%E5%BF%83-Pytest%E8%AF%A6%E8%A7%A3"><span class="toc-text">第二部分：测试框架核心 - Pytest详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Pytest%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BC%98%E5%8A%BF%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-text">2.1 Pytest的核心优势与安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E7%BC%96%E5%86%99%E7%AC%AC%E4%B8%80%E4%B8%AAPytest%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="toc-text">2.2 编写第一个Pytest测试用例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-Pytest%E7%9A%84%E7%81%B5%E9%AD%82%EF%BC%9AFixture"><span class="toc-text">2.3 Pytest的灵魂：Fixture</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E5%8F%82%E6%95%B0%E5%8C%96%E6%B5%8B%E8%AF%95-Parametrize"><span class="toc-text">2.4 参数化测试 (Parametrize)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%9A%84%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%B9%B3%E5%8F%B0"><span class="toc-text">第三部分：构建工程化的接口自动化测试平台</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E8%A7%84%E5%88%92"><span class="toc-text">3.1 项目结构规划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E5%B0%81%E8%A3%85%E8%AF%B7%E6%B1%82%E5%B7%A5%E5%85%B7"><span class="toc-text">3.2 封装请求工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86"><span class="toc-text">3.3 测试数据管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E6%B8%85%E7%90%86%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%EF%BC%88Teardown%EF%BC%89"><span class="toc-text">3.4 清理测试数据（Teardown）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-%E6%B5%81%E7%A8%8B%E6%B5%8B%E8%AF%95%EF%BC%9A%E4%B8%B2%E8%81%94%E5%A4%9A%E4%B8%AA%E6%8E%A5%E5%8F%A3"><span class="toc-text">3.5 流程测试：串联多个接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A"><span class="toc-text">3.6 生成测试报告</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90"><span class="toc-text">3.7 持续集成</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+  </div>
+</div>
+
+  
+
+  <div class="ui segment background-thin-yellow">
+    <div class="ui segment background-title-red padding-title">
+      <h4 class="header ">成就墙：</h4>
+    </div>
+    <!-- <p>这里是饼图文章统计，直观地展示文章的分类数目和其下的文章数~</p> -->
+    <div id="categories-echarts" style="height: 100%"></div>
+
+  </div>
+
+  <div class="ui segment background-thin-yellow">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_bmfjctya.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop autoplay></lottie-player>
+  </div>
+
+
+  <div class="ui segment background-thin-yellow">
+    <div class="ui segment background-title-red padding-title">
+      <h4 class="header ">文章分类：</h4>
+    </div>
+    <div class="row-flex flex-wrap categories-lists">
+      
+      <a href="/categories/%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%8B%E8%AF%95/" class="category-tab">互联网测试</a>
+      
+      <a href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/" class="category-tab">异常解决</a>
+      
+      <a href="/categories/%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%8B%E8%AF%95/%E6%95%99%E7%A8%8B/" class="category-tab">教程</a>
+      
+      <a href="/categories/%E6%95%99%E7%A8%8B/" class="category-tab">教程</a>
+      
+      <a href="/categories/%E5%AE%89%E8%A3%85%E5%AE%9E%E6%93%8D/" class="category-tab">安装实操</a>
+      
+      <a href="/categories/%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" class="category-tab">底层原理</a>
+      
+      <a class="category-tab" id="category-next"><i class="angle double right icon"></i>更多</a>
+    </div>
+  </div>
+
+  <div class="ui segment background-thin-yellow">
+    <div class="ui segment background-title-red padding-title">
+      <h4 class="header ">文章标签：</h4>
+    </div>
+    <div class="row-flex flex-wrap tabs-lists">
+      
+      <a href="/tags/%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%8B%E8%AF%95/" class="category-tab">互联网测试</a>
+      
+      <a href="/tags/PostMan/" class="category-tab">PostMan</a>
+      
+      <a href="/tags/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/" class="category-tab">异常解决</a>
+      
+      <a href="/tags/git/" class="category-tab">git</a>
+      
+      <a href="/tags/%E6%95%99%E7%A8%8B/" class="category-tab">教程</a>
+      
+      <a href="/tags/hexo/" class="category-tab">hexo</a>
+      
+      <a href="/tags/Appium/" class="category-tab">Appium</a>
+      
+      <a href="/tags/markdown/" class="category-tab">markdown</a>
+      
+      <a href="/tags/TCP/" class="category-tab">TCP</a>
+      
+      <a href="/tags/%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" class="category-tab">底层原理</a>
+      
+      <a href="/tags/%E5%AE%89%E8%A3%85%E5%AE%9E%E6%93%8D/" class="category-tab">安装实操</a>
+      
+      <a href="/tags/redis/" class="category-tab">redis</a>
+      
+      <a href="/tags/python/" class="category-tab">python</a>
+      
+      <a href="/tags/SQL/" class="category-tab">SQL</a>
+      
+      <a class="category-tab" id="tab-next"><i class="angle double right icon"></i>更多</a>
+    </div>
+  </div>
+
+  <div class="ui segment background-thin-yellow">
+
+    <div class="ui card margin-auto">
+    </div>
+  </div>
+</div>
+<!-- 不要删，下面这两个不是多余的，它是文章列表和侧边栏布局的div结尾标签 -->
+
+    </div>
+  </div>
+  <footer class="ui segment attached background-deep-green margin-top-30">
+  <div class="ui container ">
+    <div class="ui grid stackable footer-hide">
+      <!-- 内容简介 -->
+      <div class="eleven wide column post-calendar">
+        
+<div id="post-calendar" class="card-content"></div>
+
+<style type="text/css">
+    #post-calendar {
+        width: 847px;
+        height: 236px;
+        margin-bottom: 30px;
+        background-color: #FFFFFF;
+        border-radius: 5px;
+    }
+   #post-calendar  canvas{
+      margin-top:30px!important;
+      margin-bottom:20px!important;
+      padding-bottom:30px;
+    }
+</style>
+
+<script type="text/javascript" src="/lib/echarts.min.js"></script>
+<script type="text/javascript">
+    let myChart = echarts.init(document.getElementById('post-calendar'));
+    
+    var option = {
+        title: {
+            top: 0,
+            text: 'Articles-Contributions',
+            left: 'center',
+            textStyle: {
+                color: '#3C4858'
+            }
+        },
+        tooltip: {
+            padding: 10,
+            backgroundColor: '#555',
+            borderColor: '#777',
+            borderWidth: 1,
+            formatter: function (obj) {
+                var value = obj.value;
+                return '<div style="font-size: 14px;">' + value[0] + '：' + value[1] + '</div>';
+            }
+        },
+        visualMap: {
+            show: true,
+            showLabel: true,
+            categories: [0, 1, 2, 3, 4],
+            calculable: true,
+            inRange: {
+                symbol: 'rect',
+                color: ['#ebedf0', '#c6e48b', '#7bc96f', '#239a3b', '#196127']
+            },
+            itemWidth: 12,
+            itemHeight: 12,
+            orient: 'horizontal',
+            left: 'center',
+            bottom: 0
+        },
+        calendar: [{
+            left: 'center',
+            range: ["2024-09-19", "2025-09-19"],
+            cellSize: [13, 13],
+            splitLine: {
+                show: false
+            },
+            itemStyle: {
+                width: '1.88679%',
+                height: '15px',
+                color: '#EEEEEE',
+                borderColor: '#FFF',
+                borderWidth: 2
+            },
+            yearLabel: {
+                show: false
+            },
+            monthLabel: {
+                nameMap: 'cn',
+                fontWeight: 'lighter',
+                fontSize: 12
+            },
+            dayLabel: {
+                show: true,
+                formatter: '{start}  1st',
+                fontWeight: 'lighter',
+                nameMap: ['日',' ',' ','三',' ',' ','六',],
+                fontSize: 12
+            }
+        }],
+        series: [{
+            type: 'heatmap',
+            coordinateSystem: 'calendar',
+            calendarIndex: 0,
+            data: [["2024-09-19", 0], ["2024-09-20", 0], ["2024-09-21", 0], ["2024-09-22", 0], ["2024-09-23", 0], ["2024-09-24", 0], ["2024-09-25", 0], ["2024-09-26", 0], ["2024-09-27", 0], ["2024-09-28", 0], ["2024-09-29", 0], ["2024-09-30", 0], ["2024-10-01", 0], ["2024-10-02", 0], ["2024-10-03", 0], ["2024-10-04", 0], ["2024-10-05", 0], ["2024-10-06", 0], ["2024-10-07", 0], ["2024-10-08", 0], ["2024-10-09", 0], ["2024-10-10", 0], ["2024-10-11", 0], ["2024-10-12", 0], ["2024-10-13", 0], ["2024-10-14", 0], ["2024-10-15", 0], ["2024-10-16", 0], ["2024-10-17", 0], ["2024-10-18", 0], ["2024-10-19", 0], ["2024-10-20", 0], ["2024-10-21", 0], ["2024-10-22", 0], ["2024-10-23", 0], ["2024-10-24", 0], ["2024-10-25", 0], ["2024-10-26", 0], ["2024-10-27", 0], ["2024-10-28", 0], ["2024-10-29", 0], ["2024-10-30", 0], ["2024-10-31", 0], ["2024-11-01", 0], ["2024-11-02", 0], ["2024-11-03", 0], ["2024-11-04", 0], ["2024-11-05", 0], ["2024-11-06", 0], ["2024-11-07", 0], ["2024-11-08", 0], ["2024-11-09", 0], ["2024-11-10", 0], ["2024-11-11", 0], ["2024-11-12", 0], ["2024-11-13", 0], ["2024-11-14", 0], ["2024-11-15", 0], ["2024-11-16", 0], ["2024-11-17", 0], ["2024-11-18", 0], ["2024-11-19", 0], ["2024-11-20", 0], ["2024-11-21", 0], ["2024-11-22", 0], ["2024-11-23", 0], ["2024-11-24", 0], ["2024-11-25", 0], ["2024-11-26", 0], ["2024-11-27", 0], ["2024-11-28", 0], ["2024-11-29", 0], ["2024-11-30", 0], ["2024-12-01", 0], ["2024-12-02", 0], ["2024-12-03", 0], ["2024-12-04", 0], ["2024-12-05", 0], ["2024-12-06", 0], ["2024-12-07", 0], ["2024-12-08", 0], ["2024-12-09", 0], ["2024-12-10", 0], ["2024-12-11", 0], ["2024-12-12", 0], ["2024-12-13", 0], ["2024-12-14", 0], ["2024-12-15", 0], ["2024-12-16", 0], ["2024-12-17", 0], ["2024-12-18", 0], ["2024-12-19", 0], ["2024-12-20", 0], ["2024-12-21", 0], ["2024-12-22", 0], ["2024-12-23", 0], ["2024-12-24", 0], ["2024-12-25", 0], ["2024-12-26", 0], ["2024-12-27", 0], ["2024-12-28", 0], ["2024-12-29", 0], ["2024-12-30", 0], ["2024-12-31", 0], ["2025-01-01", 0], ["2025-01-02", 0], ["2025-01-03", 0], ["2025-01-04", 0], ["2025-01-05", 0], ["2025-01-06", 0], ["2025-01-07", 0], ["2025-01-08", 0], ["2025-01-09", 0], ["2025-01-10", 0], ["2025-01-11", 0], ["2025-01-12", 0], ["2025-01-13", 0], ["2025-01-14", 0], ["2025-01-15", 0], ["2025-01-16", 0], ["2025-01-17", 0], ["2025-01-18", 0], ["2025-01-19", 0], ["2025-01-20", 0], ["2025-01-21", 0], ["2025-01-22", 0], ["2025-01-23", 0], ["2025-01-24", 0], ["2025-01-25", 0], ["2025-01-26", 0], ["2025-01-27", 0], ["2025-01-28", 0], ["2025-01-29", 0], ["2025-01-30", 0], ["2025-01-31", 0], ["2025-02-01", 0], ["2025-02-02", 0], ["2025-02-03", 0], ["2025-02-04", 0], ["2025-02-05", 0], ["2025-02-06", 0], ["2025-02-07", 0], ["2025-02-08", 0], ["2025-02-09", 0], ["2025-02-10", 0], ["2025-02-11", 0], ["2025-02-12", 0], ["2025-02-13", 0], ["2025-02-14", 0], ["2025-02-15", 0], ["2025-02-16", 0], ["2025-02-17", 0], ["2025-02-18", 0], ["2025-02-19", 0], ["2025-02-20", 0], ["2025-02-21", 0], ["2025-02-22", 0], ["2025-02-23", 0], ["2025-02-24", 0], ["2025-02-25", 0], ["2025-02-26", 0], ["2025-02-27", 0], ["2025-02-28", 0], ["2025-03-01", 0], ["2025-03-02", 0], ["2025-03-03", 0], ["2025-03-04", 0], ["2025-03-05", 0], ["2025-03-06", 0], ["2025-03-07", 0], ["2025-03-08", 0], ["2025-03-09", 0], ["2025-03-10", 0], ["2025-03-11", 0], ["2025-03-12", 0], ["2025-03-13", 0], ["2025-03-14", 0], ["2025-03-15", 0], ["2025-03-16", 0], ["2025-03-17", 0], ["2025-03-18", 0], ["2025-03-19", 0], ["2025-03-20", 0], ["2025-03-21", 0], ["2025-03-22", 0], ["2025-03-23", 0], ["2025-03-24", 0], ["2025-03-25", 0], ["2025-03-26", 0], ["2025-03-27", 0], ["2025-03-28", 0], ["2025-03-29", 0], ["2025-03-30", 0], ["2025-03-31", 0], ["2025-04-01", 0], ["2025-04-02", 0], ["2025-04-03", 0], ["2025-04-04", 0], ["2025-04-05", 0], ["2025-04-06", 0], ["2025-04-07", 0], ["2025-04-08", 0], ["2025-04-09", 0], ["2025-04-10", 0], ["2025-04-11", 0], ["2025-04-12", 0], ["2025-04-13", 0], ["2025-04-14", 0], ["2025-04-15", 0], ["2025-04-16", 0], ["2025-04-17", 0], ["2025-04-18", 0], ["2025-04-19", 0], ["2025-04-20", 0], ["2025-04-21", 0], ["2025-04-22", 0], ["2025-04-23", 0], ["2025-04-24", 0], ["2025-04-25", 0], ["2025-04-26", 0], ["2025-04-27", 0], ["2025-04-28", 0], ["2025-04-29", 0], ["2025-04-30", 0], ["2025-05-01", 0], ["2025-05-02", 0], ["2025-05-03", 0], ["2025-05-04", 0], ["2025-05-05", 0], ["2025-05-06", 0], ["2025-05-07", 0], ["2025-05-08", 0], ["2025-05-09", 0], ["2025-05-10", 0], ["2025-05-11", 0], ["2025-05-12", 0], ["2025-05-13", 0], ["2025-05-14", 0], ["2025-05-15", 0], ["2025-05-16", 0], ["2025-05-17", 0], ["2025-05-18", 0], ["2025-05-19", 0], ["2025-05-20", 0], ["2025-05-21", 0], ["2025-05-22", 0], ["2025-05-23", 0], ["2025-05-24", 0], ["2025-05-25", 0], ["2025-05-26", 0], ["2025-05-27", 0], ["2025-05-28", 0], ["2025-05-29", 0], ["2025-05-30", 0], ["2025-05-31", 0], ["2025-06-01", 0], ["2025-06-02", 0], ["2025-06-03", 0], ["2025-06-04", 0], ["2025-06-05", 0], ["2025-06-06", 0], ["2025-06-07", 0], ["2025-06-08", 0], ["2025-06-09", 0], ["2025-06-10", 0], ["2025-06-11", 0], ["2025-06-12", 0], ["2025-06-13", 0], ["2025-06-14", 0], ["2025-06-15", 0], ["2025-06-16", 0], ["2025-06-17", 0], ["2025-06-18", 0], ["2025-06-19", 0], ["2025-06-20", 0], ["2025-06-21", 0], ["2025-06-22", 0], ["2025-06-23", 0], ["2025-06-24", 0], ["2025-06-25", 0], ["2025-06-26", 0], ["2025-06-27", 0], ["2025-06-28", 0], ["2025-06-29", 0], ["2025-06-30", 0], ["2025-07-01", 0], ["2025-07-02", 0], ["2025-07-03", 0], ["2025-07-04", 0], ["2025-07-05", 0], ["2025-07-06", 0], ["2025-07-07", 0], ["2025-07-08", 0], ["2025-07-09", 0], ["2025-07-10", 0], ["2025-07-11", 0], ["2025-07-12", 0], ["2025-07-13", 0], ["2025-07-14", 0], ["2025-07-15", 0], ["2025-07-16", 0], ["2025-07-17", 0], ["2025-07-18", 0], ["2025-07-19", 0], ["2025-07-20", 0], ["2025-07-21", 0], ["2025-07-22", 0], ["2025-07-23", 0], ["2025-07-24", 0], ["2025-07-25", 0], ["2025-07-26", 0], ["2025-07-27", 0], ["2025-07-28", 0], ["2025-07-29", 0], ["2025-07-30", 0], ["2025-07-31", 0], ["2025-08-01", 0], ["2025-08-02", 0], ["2025-08-03", 0], ["2025-08-04", 0], ["2025-08-05", 0], ["2025-08-06", 0], ["2025-08-07", 0], ["2025-08-08", 0], ["2025-08-09", 0], ["2025-08-10", 0], ["2025-08-11", 0], ["2025-08-12", 0], ["2025-08-13", 0], ["2025-08-14", 0], ["2025-08-15", 0], ["2025-08-16", 0], ["2025-08-17", 0], ["2025-08-18", 0], ["2025-08-19", 0], ["2025-08-20", 0], ["2025-08-21", 1], ["2025-08-22", 5], ["2025-08-23", 2], ["2025-08-24", 0], ["2025-08-25", 0], ["2025-08-26", 0], ["2025-08-27", 0], ["2025-08-28", 0], ["2025-08-29", 0], ["2025-08-30", 0], ["2025-08-31", 0], ["2025-09-01", 0], ["2025-09-02", 0], ["2025-09-03", 1], ["2025-09-04", 0], ["2025-09-05", 0], ["2025-09-06", 0], ["2025-09-07", 0], ["2025-09-08", 0], ["2025-09-09", 0], ["2025-09-10", 0], ["2025-09-11", 0], ["2025-09-12", 0], ["2025-09-13", 0], ["2025-09-14", 0], ["2025-09-15", 0], ["2025-09-16", 2], ["2025-09-17", 9], ["2025-09-18", 2], ["2025-09-19", 6]]
+        }]
+    };
+    myChart.setOption(option);
+</script>
+
+      </div>
+
+    </div>
+    <!-- 分割线 -->
+    <div class="ui divider title-divider footer-hide"></div>
+    <div class="ui container margin-top-10 page-footer">© 2025 | Powered by Issac </div>
+    <div class="ui container margin-top-10 page-footer">本博客已运行:<span id=span_dt_dt ></span>天了
+<script language=javascript>
+  function show_date_time() {
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay = new Date("8/21/2025 22:22:45");
+    today = new Date();
+    timeold = (today.getTime() - BirthDay.getTime());
+    sectimeold = timeold / 1000
+    secondsold = Math.floor(sectimeold);
+    msPerDay = 24 * 60 * 60 * 1000
+    e_daysold = timeold / msPerDay
+    daysold = Math.floor(e_daysold);
+    e_hrsold = (e_daysold - daysold) * 24;
+    hrsold = Math.floor(e_hrsold);
+    e_minsold = (e_hrsold - hrsold) * 60;
+    minsold = Math.floor((e_hrsold - hrsold) * 60);
+    seconds = Math.floor((e_minsold - minsold) * 60);
+    span_dt_dt.innerHTML = '<font style=color:#f3eee5>' + daysold + '</font> 天 <font style=color:#f3eee5>' + hrsold + '</font> 时 <font style=color:#f3eee5>' + minsold + '</font> 分 <font style=color:#f3eee5>' + seconds + '</font> 秒';
+  }
+  show_date_time();
+</script>
+</div>
+    <div class="ui container margin-top-10 page-footer">
+    </div>
+  </div>
+</footer>
+
+  <!-- gototop按钮 -->
+  <button class="gototop"><i class="arrow alternate circle up outline icon big font-thin-yellow"></i></button>
+  <!-- semantic ui js资源 -->
+  
+<script src="/lib/jquery.min.js"></script>
+
+  
+<script src="/lib/semantic.min.js"></script>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    var list = $(".tabs-lists a");
+    var numToShow = 15;
+    var button = $("#tab-next");
+    var numInList = list.length;
+    list.hide();
+    if (numInList > numToShow) {
+      button.show();
+    }
+    list.slice(0, numToShow).show();
+
+    button.click(function() {
+      var showing = list.filter(':visible').length;
+      list.slice(showing - 1, showing + numToShow).fadeIn();
+      var nowShowing = list.filter(':visible').length;
+      if (nowShowing >= numInList) {
+        button.hide();
+      }
+    });
+
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    var list = $(".categories-lists a");
+    var numToShow = 15;
+    var button = $("#category-next");
+    var numInList = list.length;
+    list.hide();
+    if (numInList > numToShow) {
+      button.show();
+    }
+    list.slice(0, numToShow).show();
+
+    button.click(function() {
+      var showing = list.filter(':visible').length;
+      list.slice(showing - 1, showing + numToShow).fadeIn();
+      var nowShowing = list.filter(':visible').length;
+      if (nowShowing >= numInList) {
+        button.hide();
+      }
+    });
+
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    var list = $(".tag1-lists a");
+    var numToShow = 15;
+    var button = $("#tag1-next");
+    var numInList = list.length;
+    list.hide();
+    if (numInList > numToShow) {
+      button.show();
+    }
+    list.slice(0, numToShow).show();
+
+    button.click(function() {
+      var showing = list.filter(':visible').length;
+      list.slice(showing - 1, showing + numToShow).fadeIn();
+      var nowShowing = list.filter(':visible').length;
+      if (nowShowing >= numInList) {
+        button.hide();
+      }
+    });
+
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    var list = $(".tag2-lists a");
+    var numToShow = 15;
+    var button = $("#tag2-next");
+    var numInList = list.length;
+    list.hide();
+    if (numInList > numToShow) {
+      button.show();
+    }
+    list.slice(0, numToShow).show();
+
+    button.click(function() {
+      var showing = list.filter(':visible').length;
+      list.slice(showing - 1, showing + numToShow).fadeIn();
+      var nowShowing = list.filter(':visible').length;
+      if (nowShowing >= numInList) {
+        button.hide();
+      }
+    });
+
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    var list = $(".category1-lists a");
+    var numToShow = 15;
+    var button = $("#category1-next");
+    var numInList = list.length;
+    list.hide();
+    if (numInList > numToShow) {
+      button.show();
+    }
+    list.slice(0, numToShow).show();
+
+    button.click(function() {
+      var showing = list.filter(':visible').length;
+      list.slice(showing - 1, showing + numToShow).fadeIn();
+      var nowShowing = list.filter(':visible').length;
+      if (nowShowing >= numInList) {
+        button.hide();
+      }
+    });
+
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    var list = $(".category2-lists a");
+    var numToShow = 15;
+    var button = $("#category2-next");
+    var numInList = list.length;
+    list.hide();
+    if (numInList > numToShow) {
+      button.show();
+    }
+    list.slice(0, numToShow).show();
+
+    button.click(function() {
+      var showing = list.filter(':visible').length;
+      list.slice(showing - 1, showing + numToShow).fadeIn();
+      var nowShowing = list.filter(':visible').length;
+      if (nowShowing >= numInList) {
+        button.hide();
+      }
+    });
+
+  });
+</script>
+
+  <script type="text/javascript" src="/lib/echarts.min.js"></script>
+<script type="text/javascript">
+  var dom = document.getElementById("categories-echarts");
+  var categoriesChart = echarts.init(dom);
+  var app = {};
+  var option;
+
+
+<!-- 核心关键 -->
+  
+
+
+  option = {
+    series: [{
+      name: '分类统计',
+      type: 'pie',
+      radius: '55%',
+      data: [{"name":"互联网测试","value":20},{"name":"异常解决","value":1},{"name":"教程","value":19},{"name":"教程","value":3},{"name":"安装实操","value":3},{"name":"底层原理","value":1}]
+    }],
+      tooltip: {}
+  };
+
+  if (option && typeof option === 'object') {
+    categoriesChart.setOption(option);
+  }
+</script>
+  
+<script src="/js/jquery.gototop.min.js"></script>
+
+<!-- gototop 脚本 -->
+<script type="text/javascript">
+  $(function() {
+    // $(".gototop").gototop();
+    $(".gototop").gototop({
+      position: 0,
+      duration: 1250,
+      visibleAt: 300,
+      classname: "isvisible"
+    });
+  });
+</script>
+
+  
+<script src="/js/search.js"></script>
+
+<script type="text/javascript">
+  //单击弹出窗口事件
+  $(document).ready(function() {
+    $("#nav-search").click(function() {
+      $('.ui.modal').modal('show');
+      event.preventDefault();
+    });
+    //搜索功能初始化
+    if ($('.local-search').length) {
+      $.getScript('/js/search.js', function() {
+        searchFunc("/search.xml", 'local-search-input', 'local-search-result');
+      });
+    }
+  });
+
+</script>
+
+  <!-- 这是nav菜单栏的选中状态代码 -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    // 获取导航栏中元素
+    let navs = document.querySelectorAll(".item");
+    // 获取当前页面中的地址
+    let pagePath = window.location.pathname;
+    for (let nav of navs) {
+      // 获取属性
+      let navPath = nav.getAttribute("data-path");
+      // alert(pagePath)
+      // console.log(nav.className)
+      if (navPath === pagePath) {
+        // console.log(pagePath)
+        nav.className = "item menu-active";
+      }
+    }
+  });
+</script>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+    // 获取导航栏中元素
+    let pagePath = window.location.href;
+    // alert(pagePath)
+    let tabs = document.querySelectorAll(".tabs-nav");
+    for (let tab of tabs) {
+      // console.log(nav.href);
+      let tabPath = tab.href;
+      if (tabPath === pagePath) {
+        // console.log(pagePath)
+        tab.className = "tabs-nav  tabs-active";
+      }
+    }
+  });
+</script>
+
+  <!-- 目录栏中滚动定位对应超链接 -->
+<script type="text/javascript">
+  //是否激活目录栏样式
+  function isActiveCatalog() {
+    //设置初始高度向下20
+    let offsetHeight = 20;
+
+    //获取当前页面滚动位置距离页面顶部的高度值***
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+    //hexo渲染的文章页面标题H1、2、····,它的类名是headerlink，获取该类名对应的文章标题标签、
+    let headerLinkList = document.getElementsByClassName("headerlink");
+
+    //hexo渲染生成的目录栏中，标题列表超链接的类名是toc-link获取其全部对应标签内容装进变量里
+    let catalogLinkList = document.getElementsByClassName("toc-link");
+
+    //获取目录栏中所有标题标签元素进行遍历判断与设定
+    for (let i = 0; i < catalogLinkList.length; i++) {
+      //定义这一个目录标题的高度，我也还不是很明白offsettop和scrollTop之间的区别
+      let currentTopCatalog = headerLinkList[i].offsetTop - offsetHeight;
+
+      //定义下一个目录标题的高度******
+      let nextTopCatalog = i + 1 === headerLinkList.length ? //判断这一个目录是不是最后一个标题，如果是就赋值无穷，不是就赋值下一个目录标题的高度
+        Infinity : headerLinkList[i + 1].offsetTop - offsetHeight;
+
+      //判断目录标题是不是为当前标题(设置当前目录标题为激活状态)**********
+      if (scrollTop >= currentTopCatalog && scrollTop < nextTopCatalog) {
+        catalogLinkList[i].className = "toc-link toc-active"
+      } else {
+        catalogLinkList[i].className = "toc-link"
+      }
+
+    }
+
+  }
+
+  isActiveCatalog()
+  document.addEventListener("scroll", isActiveCatalog, false);
+</script>
+
+  <script type="text/javascript">
+  $('.menu-button').click(function(){
+    $('.item').toggleClass('moblie-hide')
+  })
+</script>
+
+  <script type="text/javascript">
+  $('.wechat-link')
+    .popup({
+      inline: true,
+      on: 'click'
+    });
+
+  $('.public-link')
+    .popup({
+      inline: true,
+      on: 'click'
+    });
+
+</script>
+
+  <!-- 实现fancybox的脚本 -->
+ <script type="text/javascript">
+   // 集成fancybox, 为所有img元素添加父元素
+   $("p img").each(function () {
+      // $(this).attr("data-fancybox", "gallery"); 直接给img添加data-fancybox会导致点击图片后图片消失
+       var element = document.createElement("a");
+       $(element).attr("data-fancybox", "gallery");
+       $(element).attr("href", $(this).attr("src"));
+       $(this).wrap(element);
+   });
+ </script>
+
+  <!-- 朋友圈功能 -->
+  
+<script src="/lib/vue.min.js"></script>
+
+  
+<script src="/js/request.js"></script>
+
+  
+
+  
+
+  
+<script src="/js/countdown.js"></script>
+
+
+</body>
+
+</html>
